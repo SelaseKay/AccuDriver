@@ -71,8 +71,8 @@ class _SplashscreenState extends State<Splashscreen> {
                       ),
                       CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: 50.0,
-                        backgroundImage: AssetImage('images/accudrive.jpg'),
+                        maxRadius: 65.0,
+                        backgroundImage: AssetImage('assets/images/accudrive.jpg'),
                       ),
                       SizedBox(
                         height: 100.0,
@@ -88,7 +88,7 @@ class _SplashscreenState extends State<Splashscreen> {
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: 'Dancing Script',
-                                  fontSize: 20.0),
+                                  fontSize: 16.0),
                               textAlign: TextAlign.center,
                             ),
                           ],

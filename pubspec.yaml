@@ -68,13 +68,5 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
  
- 
-  fonts:
-  - family: Dancing Script
-    fonts:
-    - asset: fonts/DancingScript-Medium.ttf
-  
-  - family: High Tower Text
-    fonts:
-    - asset: fonts/High Tower Text Regular.ttf
+
 
