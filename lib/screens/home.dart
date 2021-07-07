@@ -1,4 +1,5 @@
 // ignore: import_of_legacy_library_into_null_safe
+import 'package:accudriver/screens/testcategories.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:accudriver/assets/Strings.dart';
@@ -53,7 +54,7 @@ class _HomeState extends State<Home> {
                   borderRadius: BorderRadius.all(Radius.circular(31)),
                   ),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: _navigateToTestCategories,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(31)),
                 child: Align(
@@ -175,5 +176,12 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  void _navigateToTestCategories(){
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TestCategories())
+      );
   }
 }
