@@ -9,5 +9,5 @@ class Strings {
   static String testCategories = 'TestCategories';
   static String generalKnowledgeOnDriving = 'General Knowledge On Driving';
   static String howMuchDoYouKnowAboutSigns = 'How Much Do You Know About Road Signs?';
-  static String testYourSelfOnYourCar = 'Test Yourself On Your Car Equipment';
+  static String testYourSelfOnYourCar = 'Do You Know Stuff About Your Car?';
   }
