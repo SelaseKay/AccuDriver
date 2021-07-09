@@ -17,7 +17,7 @@ class TestCard extends StatefulWidget {
       required this.topMargin,
       required this.cardTitle,
       required this.numOfQuestions,
-      required this.passMark})
+      required this.passMark,})
       : super(key: key);
 
   @override
