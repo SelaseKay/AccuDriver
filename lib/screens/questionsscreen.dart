@@ -14,8 +14,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     final double screenHeight =
         MediaQuery.of(context).size.height - statusBarHeight;
-    final double screenWidth =
-          MediaQuery.of(context).size.width;
+    final double screenWidth = MediaQuery.of(context).size.width;
     final double questionBackgroundHeight = screenHeight * 0.5;
     final double questionViewHeight = questionBackgroundHeight * 0.5;
     return MaterialApp(
@@ -47,7 +46,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       ),
                       Positioned(
                         height: questionViewHeight,
-                          width: screenWidth,
+                        width: screenWidth,
                         bottom: -60.0,
                         child: Container(
                           margin: EdgeInsets.only(left: 24.0, right: 24.0),
@@ -57,7 +56,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             color: Colors.white,
                             borderRadius: BorderRadius.all(Radius.circular(21)),
                             boxShadow: [
-                              BoxShadow(                         
+                              BoxShadow(
                                 blurRadius: 2.0,
                                 spreadRadius: 0.0,
                                 offset: Offset(
