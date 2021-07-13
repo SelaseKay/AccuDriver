@@ -179,7 +179,7 @@ class _HomeState extends State<Home> {
   }
 
   void _navigateToTestCategories(){
-    Navigator.push(
+    Navigator.push( 
       context,
       MaterialPageRoute(builder: (context) => TestCategories())
       );
