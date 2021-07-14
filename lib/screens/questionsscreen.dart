@@ -1,3 +1,4 @@
+import 'package:accudriver/custom_widget/scoreboard.dart';
 import 'package:accudriver/custom_widget/timer.dart';
 import 'package:accudriver/custom_widget/timerpainter.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     final double questionBackgroundHeight = screenHeight * 0.5;
 
     final double questionViewHeight = questionBackgroundHeight * 0.5;
+
+    final double questionViewWidth = screenWidth - 48;
 
     final double timerHeight = questionViewHeight * 0.5;
 
@@ -79,24 +82,26 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                               Positioned(
                                 left: ((screenWidth - 48) * 1/2) - timerHeight / 2,
                                 top: -(timerHeight / 2),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      color: Colors.white),
+                                child: Container(                                
                                   child: Timer(
                                         parentHeight: timerHeight,
                                         parentWidth: timerHeight
                                   ),
                                 ),
                               ),
-                              
-                              
+                              ScoreBoard(
+                                questionViewWidth: questionViewWidth, 
+                                timerSize: timerHeight, 
+                                leftText: '03',
+                                barColor: HexColor('#8ECF94'),
+                                )
                             ],
                           ),
                         ),
                       ),
                     ],
                   ),
+
                 ),
               ],
             ),
