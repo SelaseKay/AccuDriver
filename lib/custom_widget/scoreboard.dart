@@ -8,13 +8,29 @@ class ScoreBoard extends StatefulWidget {
   String rightText;
   HexColor? barColor;
 
+  double marginTop;
+  double marginLeft;
+  double marginRigt;
+
+  double barMarginTop;
+  double barMarginLeft;
+  double barMarginRight;
+  
+
   ScoreBoard(
       {Key? key,
       required this.questionViewWidth,
       required this.timerSize,
       this.leftText = '',
       this.rightText = '',
-      this.barColor})
+      this.barColor,
+      this.marginLeft = 0.0,
+      this.marginRigt = 0.0,
+      this.marginTop = 0.0,
+      this.barMarginLeft = 0.0,
+      this.barMarginRight = 0.0,
+      this.barMarginTop = 0.0
+      })
       : super(key: key);
 
   @override
@@ -32,7 +48,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
         child: Row(
       children: [
         Container(
-          margin: EdgeInsets.only(left: 8.0, top: 16.0),
+          margin: EdgeInsets.only(left: widget.marginLeft, top: widget.marginTop),
           child: Text(
             '${widget.leftText}',
             textAlign: TextAlign.center,
@@ -44,7 +60,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
           ),
         ),
         Container(
-          margin: EdgeInsets.only(left: 6.0, top: 16.0),
+          margin: EdgeInsets.only(left: 6.0, top: widget.marginTop),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(30)),
               color: widget.barColor),
@@ -52,7 +68,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
           width: maxWidthOfBar,
         ),
         Container(
-          margin: EdgeInsets.only(left: 8.0, top: 16.0),
+          margin: EdgeInsets.only(left: 6.0, top: widget.marginTop),
           child: Text(
             '${widget.rightText}',
             textAlign: TextAlign.center,

@@ -93,6 +93,17 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                 questionViewWidth: questionViewWidth, 
                                 timerSize: timerHeight, 
                                 leftText: '03',
+                                marginTop: 16.0,
+                                marginLeft: 8.0,
+                                barMarginLeft: 6.0,
+                                barMarginTop: 16.0,
+                                barColor: HexColor('#8ECF94'),
+                                ),
+
+                                ScoreBoard(
+                                questionViewWidth: questionViewWidth, 
+                                timerSize: timerHeight, 
+                                rightText: '03',
                                 barColor: HexColor('#8ECF94'),
                                 )
                             ],
