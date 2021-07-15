@@ -12,9 +12,6 @@ class ScoreBoard extends StatefulWidget {
   double marginLeft;
   double marginRigt;
 
-  double barMarginTop;
-  double barMarginLeft;
-  double barMarginRight;
   
 
   ScoreBoard(
@@ -27,9 +24,6 @@ class ScoreBoard extends StatefulWidget {
       this.marginLeft = 0.0,
       this.marginRigt = 0.0,
       this.marginTop = 0.0,
-      this.barMarginLeft = 0.0,
-      this.barMarginRight = 0.0,
-      this.barMarginTop = 0.0
       })
       : super(key: key);
 
@@ -75,7 +69,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
             style: TextStyle(
               fontSize: 10.0,
               fontWeight: FontWeight.bold,
-              color: HexColor('#8ECF94'),
+              color: widget.barColor,
             ),
           ),
         ),
