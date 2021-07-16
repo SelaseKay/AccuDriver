@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class AnswerOption extends StatefulWidget {
-  double? marginTop;
-  double? marginLeftRight;
+  double marginTop;
+  double marginBottom;
+  double marginLeftRight;
   bool? isCorrectIconVisible;
   bool? isWrongIconVisible;
   HexColor _borderColor = HexColor('#E1E1E1');
   HexColor _textColor = HexColor('#535353');
 
-  AnswerOption({Key? key, this.marginTop, this.marginLeftRight, this.isCorrectIconVisible, this.isWrongIconVisible})
+  AnswerOption({Key? key, this.marginTop = 0.0, this.marginLeftRight = 0.0, this.isCorrectIconVisible, this.isWrongIconVisible, this.marginBottom = 0.0})
       : super(key: key);
 
   @override
@@ -25,9 +26,10 @@ class _AnswerOptionState extends State<AnswerOption> {
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.only(
-            top: widget.marginTop!,
-            right: widget.marginLeftRight!,
-            left: widget.marginLeftRight!),
+            top: widget.marginTop,
+            bottom: widget.marginBottom,
+            right: widget.marginLeftRight,
+            left: widget.marginLeftRight),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
             border: Border.all(width: 2, color: widget._borderColor)),
