@@ -1,11 +1,15 @@
+import 'package:accudriver/custom_widget/answeroption.dart';
 import 'package:accudriver/custom_widget/currentquestionIndicator.dart';
 import 'package:accudriver/custom_widget/scoreboard.dart';
 import 'package:accudriver/custom_widget/timer.dart';
+import 'package:accudriver/utils/widgetsize.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class QuestionsScreen extends StatefulWidget {
-  const QuestionsScreen({Key? key}) : super(key: key);
+  late double _expansionTileSize = 0.0;
+
+  QuestionsScreen({Key? key}) : super(key: key);
 
   @override
   _QuestionsScreenState createState() => _QuestionsScreenState();
@@ -48,7 +52,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       clipBehavior: Clip.none,
                       children: [
                         Container(
-                          height: questionBackgroundHeight + questionBackgroundHeight / 2,
+                          child: Column(),
                         ),
                         Container(
                           margin: EdgeInsets.only(
@@ -64,26 +68,36 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                         ),
                         Positioned(
                           width: screenWidth,
-                          top: questionBackgroundHeight - (questionViewHeight / 4),
+                          top: questionBackgroundHeight -
+                              (questionViewHeight / 4),
                           child: Column(
-                            children: [//Positioned(
+                            children: [
+                              //Positioned(
                               //width: screenWidth,
-                             // bottom: -50.0,
-                                 Container(
-                                   width: screenWidth,
-                                  margin: EdgeInsets.only(left: 24.0, right: 24.0),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.all(Radius.circular(21)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 2.0,
-                                        spreadRadius: 0.0,
-                                        offset: Offset(
-                                            2.0, 2.0), // shadow direction: bottom right
-                                      )
-                                    ],
-                                  ),
+                              // bottom: -50.0,
+                              Container(
+                                width: screenWidth,
+                                margin:
+                                    EdgeInsets.only(left: 24.0, right: 24.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(21)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 2.0,
+                                      spreadRadius: 0.0,
+                                      offset: Offset(2.0,
+                                          2.0), // shadow direction: bottom right
+                                    )
+                                  ],
+                                ),
+                                child: WidgetSize(
+                                  onChange: (Size size) {
+                                    setState(() {
+                                      widget._expansionTileSize = size.height;
+                                    });
+                                  },
                                   child: Column(
                                     children: [
                                       Stack(
@@ -100,7 +114,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                             ),
                                           ),
                                           ScoreBoard(
-                                            questionViewWidth: questionViewWidth,
+                                            questionViewWidth:
+                                                questionViewWidth,
                                             timerSize: timerHeight,
                                             leftText: '03',
                                             marginTop: 16.0,
@@ -108,13 +123,15 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                             barColor: HexColor('#8ECF94'),
                                           ),
                                           ScoreBoard(
-                                            questionViewWidth: questionViewWidth,
+                                            questionViewWidth:
+                                                questionViewWidth,
                                             timerSize: timerHeight,
                                             rightText: '03',
                                             barColor: HexColor('#D86B6B'),
-                                            marginLeft: (questionViewWidth / 2) +
-                                                (timerHeight / 2) -
-                                                8.0,
+                                            marginLeft:
+                                                (questionViewWidth / 2) +
+                                                    (timerHeight / 2) -
+                                                    8.0,
                                             marginTop: 16.0,
                                           ),
                                         ],
@@ -125,30 +142,25 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                         totalQuestionNum: '20',
                                       ),
                                       ExpansionTile(
-                                        title: Text('aa'),
+                                        trailing: SizedBox.shrink(),
+                                        title: Text(
+                                            'Which of the following is part of the car\'s mainstream aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+                                        tilePadding: EdgeInsets.only(
+                                            top: 16.0,
+                                            bottom: 8.0,
+                                            right: 16.0,
+                                            left: 16.0),
                                         children: [
-                                          Container(
-                                              height: 55.0,
-                                              child: Text('bbbbbbbbbbbbbbbbb')),
-                                              Container(
-                                              height: 55.0,
-                                              child: Text('bbbbbbbbbbbbbbbbb')),
-                                              Container(
-                                              height: 55.0,
-                                              child: Text('bbbbbbbbbbbbbbbbb')),
-                                              Container(
-                                              height: 55.0,
-                                              child: Text('bbbbbbbbbbbbbbbbb')),
-                                              Container(
-                                              height: 55.0,
-                                              child: Text('bbbbbbbbbbbbbbbbb')),
-                                              Container(
-                                              height: 55.0,
-                                              child: Text('bbbbbbbbbbbbbbbbb')),
+                                          Container(child: Text('')),
                                         ],
-                                      )
+                                        initiallyExpanded: true,
+                                        onExpansionChanged: (bool) {
+                                          if (bool) {}
+                                        },
+                                      ),
                                     ],
                                   ),
+                                ),
                               ),
                             ],
                           ),
@@ -156,13 +168,21 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       ],
                     ),
                   ),
-                  Text('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-                   Text('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-                    Text('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-                     Text('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-                      Text('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-                       Text('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-                 
+                  Container(
+                    height: widget._expansionTileSize,
+                  ),
+                  AnswerOption(
+                    marginTop: 0.0,
+                    marginLeftRight: 32.0,
+                    isCorrectIconVisible: false,
+                    isWrongIconVisible: false,
+                  ),
+                  AnswerOption(
+                    marginTop: 8.0,
+                    marginLeftRight: 32.0,
+                    isCorrectIconVisible: false,
+                    isWrongIconVisible: false,
+                  )
                 ],
               ),
             ),
