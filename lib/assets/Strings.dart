@@ -6,4 +6,8 @@ class Strings {
   static String learnSigns = 'Learn Signs';
   static String learnWithVids = 'Learn With Videos And Take Your Driving Test';
   static String driveSafe = 'Drive Safe And Drink Less';
+  static String testCategories = 'TestCategories';
+  static String generalKnowledgeOnDriving = 'General Knowledge On Driving';
+  static String howMuchDoYouKnowAboutSigns = 'How Much Do You Know About Road Signs?';
+  static String testYourSelfOnYourCar = 'Do You Know Stuff About Your Car?';
   }
