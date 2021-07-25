@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:accudriver/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -31,7 +32,9 @@ class Splashscreen extends StatefulWidget {
 class _SplashscreenState extends State<Splashscreen> {
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 5), () => print('Splash Done'));
+     Timer(Duration(seconds: 3), () {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
+    });
   }
 
   @override
