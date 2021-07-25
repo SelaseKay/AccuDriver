@@ -1,6 +1,4 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:accudriver/screens/testcategories.dart';
-import 'package:accudriver/screens/videoscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:accudriver/assets/Strings.dart';
@@ -47,15 +45,15 @@ class _HomeState extends State<Home> {
               height: 190.0,
               width: double.infinity,
               decoration: BoxDecoration(
-                gradient: LinearGradient(colors: [
-                  HexColor('#71C0F5'),
-                  HexColor('#45A5E5'),
-                  HexColor('#0A80CF'),
-                ]),
-                borderRadius: BorderRadius.all(Radius.circular(31)),
-              ),
+                  gradient: LinearGradient(colors: [
+                    HexColor('#71C0F5'),
+                    HexColor('#45A5E5'),
+                    HexColor('#0A80CF'),
+                  ]),
+                  borderRadius: BorderRadius.all(Radius.circular(31)),
+                  ),
               child: MaterialButton(
-                onPressed: _navigateToTestCategories,
+                onPressed: () {},
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(31)),
                 child: Align(
@@ -107,16 +105,7 @@ class _HomeState extends State<Home> {
                           animationDuration: Duration(milliseconds: 200),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(31)),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return videoscreen();
-                                },
-                              ),
-                            );
-                          },
+                          onPressed: () {},
                           color: HexColor('#00C177'),
                           height: double.infinity,
                           minWidth: double.infinity,
@@ -186,10 +175,5 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  void _navigateToTestCategories() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TestCategories()));
   }
 }

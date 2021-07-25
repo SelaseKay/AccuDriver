@@ -168,6 +168,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+<<<<<<< HEAD
   video_player:
     dependency: "direct main"
     description:
@@ -193,6 +194,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+=======
+>>>>>>> parent of 9a15c9a (Merge pull request #3 from SelaseKay/Silas'-Branch)
 sdks:
   dart: ">=2.12.0 <3.0.0"
   flutter: ">=2.0.1"
