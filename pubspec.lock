@@ -174,7 +174,11 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.12"
+=======
+    version: "2.1.10"
+>>>>>>> 9a15c9af6a5eb1664a0597b9fa58b77a13e60981
   video_player_platform_interface:
     dependency: transitive
     description:
