@@ -11,8 +11,8 @@ import 'package:hexcolor/hexcolor.dart';
 class QuestionsScreen extends StatefulWidget {
   double _expansionTileSize = 0.0;
 
-  bool _isOnOptPressedEnabled = true;
-  
+  bool _isGestureDetectorEnabled = true;
+
   QuestionsScreen({Key? key}) : super(key: key);
 
   @override
@@ -96,8 +96,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
                   AnswerOption(
                     onAnswerSelected: (bool isCorrect){
-
+                        setState(() {
+                          widget._isGestureDetectorEnabled = false;
+                        });
                     },
+                    isGestureDetectorEnabled: widget._isGestureDetectorEnabled,
                     marginTop: 0.0,
                     marginLeftRight: 32.0,
                     isCorrectIconVisible: false,
@@ -106,8 +109,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
                   AnswerOption(
                     onAnswerSelected: (bool isCorrect){
-                      
+                      setState(() {
+                        widget._isGestureDetectorEnabled = false;
+                      });
                     },
+                    isGestureDetectorEnabled: widget._isGestureDetectorEnabled,
                     marginTop: 8.0,
                     marginBottom: 8.0,
                     marginLeftRight: 32.0,

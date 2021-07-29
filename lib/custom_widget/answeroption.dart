@@ -17,6 +17,8 @@ class AnswerOption extends StatefulWidget {
 
   String option;
 
+  bool isGestureDetectorEnabled;
+
   VoidCallback _onAnswerOptionClickedRef = (){};
 
   Function onAnswerSelected;
@@ -37,6 +39,7 @@ class AnswerOption extends StatefulWidget {
       this.isWrongIconVisible,
       this.marginBottom = 0.0,
       this.option = "",
+      this.isGestureDetectorEnabled = true,
       required this.onAnswerSelected,
       this.correctAnswer = ""})
       : super(key: key);
@@ -109,9 +112,9 @@ class _AnswerOptionState extends State<AnswerOption> {
       if (widget._isCorrectAnswer) {
         widget.isCorrectIconVisible = true;
         widget.isWrongIconVisible = false;
-        widget.onAnswerSelected(widget._isCorrectAnswer);
         widget._borderColor = HexColor('#8ECF94');
         widget._textColor = HexColor('#8ECF94');
+        widget.onAnswerSelected(widget._isCorrectAnswer);
       } else {
         widget.isCorrectIconVisible = false;
         widget.isWrongIconVisible = true;
@@ -119,7 +122,9 @@ class _AnswerOptionState extends State<AnswerOption> {
         widget._textColor = HexColor('#D86B6B');
         widget.onAnswerSelected(widget._isCorrectAnswer);
       }
-      widget._onAnswerOptionClickedRef = (){};
+      if (!widget.isGestureDetectorEnabled){
+        widget._onAnswerOptionClickedRef = (){};
+      }
     });    
   }
 
