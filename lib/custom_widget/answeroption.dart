@@ -4,14 +4,41 @@ import 'package:hexcolor/hexcolor.dart';
 
 class AnswerOption extends StatefulWidget {
   double marginTop;
+
   double marginBottom;
+
   double marginLeftRight;
+
   bool? isCorrectIconVisible;
+
   bool? isWrongIconVisible;
+
+  String correctAnswer;
+
+  String option;
+
+  VoidCallback _onAnswerOptionClickedRef = (){};
+
+  Function onAnswerSelected;
+
+  var _isCorrectAnswer = false;
+
   HexColor _borderColor = HexColor('#E1E1E1');
+
   HexColor _textColor = HexColor('#535353');
 
-  AnswerOption({Key? key, this.marginTop = 0.0, this.marginLeftRight = 0.0, this.isCorrectIconVisible, this.isWrongIconVisible, this.marginBottom = 0.0})
+ 
+
+  AnswerOption(
+      {Key? key,
+      this.marginTop = 0.0,
+      this.marginLeftRight = 0.0,
+      this.isCorrectIconVisible,
+      this.isWrongIconVisible,
+      this.marginBottom = 0.0,
+      this.option = "",
+      required this.onAnswerSelected,
+      this.correctAnswer = ""})
       : super(key: key);
 
   @override
@@ -19,10 +46,13 @@ class AnswerOption extends StatefulWidget {
 }
 
 class _AnswerOptionState extends State<AnswerOption> {
+
   @override
   Widget build(BuildContext context) {
+    widget._onAnswerOptionClickedRef = _onAnswerOptionClicked;
+
     return GestureDetector(
-      onTap: _onAnwerOptionClicked,
+      onTap: widget._onAnswerOptionClickedRef,
       child: Container(
         width: double.infinity,
         margin: EdgeInsets.only(
@@ -40,28 +70,30 @@ class _AnswerOptionState extends State<AnswerOption> {
                 child: Padding(
                     padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0),
                     child: Text(
-                        'The quick brown fox jumped over the lazy dog aaaaaaaaaaaaaa', style: TextStyle(
-                          color: widget._textColor
-                        ),)
-                        ),
+                      'The quick brown fox jumped over the lazy dog aaaaaaaaaaaaaa',
+                      style: TextStyle(color: widget._textColor),
+                    )),
               ),
               Stack(
                 alignment: AlignmentDirectional.center,
-                children: 
-                [
-                Container(),
-                Visibility(
-                  visible: widget.isCorrectIconVisible!,
-                  child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.check_circle, color: HexColor('#8ECF94'))),
-                ),  
-                Visibility(
-                  visible: widget.isWrongIconVisible!,
-                  child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Icon(Icons.highlight_off, color: HexColor('#D86B6B'),)),
-                ),
+                children: [
+                  Container(),
+                  Visibility(
+                    visible: widget.isCorrectIconVisible!,
+                    child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(Icons.check_circle,
+                            color: HexColor('#8ECF94'))),
+                  ),
+                  Visibility(
+                    visible: widget.isWrongIconVisible!,
+                    child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.highlight_off,
+                          color: HexColor('#D86B6B'),
+                        )),
+                  ),
                 ],
               )
             ])
@@ -71,13 +103,34 @@ class _AnswerOptionState extends State<AnswerOption> {
     );
   }
 
-  _onAnwerOptionClicked(){
+  _onAnswerOptionClicked(){
     setState(() {
-      
+      _checkAnswerCorrectness();
+      if (widget._isCorrectAnswer) {
+        widget.isCorrectIconVisible = true;
+        widget.isWrongIconVisible = false;
+        widget.onAnswerSelected(widget._isCorrectAnswer);
+        widget._borderColor = HexColor('#8ECF94');
+        widget._textColor = HexColor('#8ECF94');
+      } else {
         widget.isCorrectIconVisible = false;
         widget.isWrongIconVisible = true;
         widget._borderColor = HexColor('#D86B6B');
         widget._textColor = HexColor('#D86B6B');
+        widget.onAnswerSelected(widget._isCorrectAnswer);
+      }
+      widget._onAnswerOptionClickedRef = (){};
+    });    
+  }
+
+
+  _checkAnswerCorrectness() {
+    setState(() {
+      if (widget.option == widget.correctAnswer) {
+        widget._isCorrectAnswer = true;
+      } else {
+        widget._isCorrectAnswer = false;
+      }
     });
   }
 }
