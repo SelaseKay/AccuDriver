@@ -73,7 +73,7 @@ class _AnswerOptionState extends State<AnswerOption> {
                 child: Padding(
                     padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0),
                     child: Text(
-                      'The quick brown fox jumped over the lazy dog aaaaaaaaaaaaaa',
+                      'The quick brown fox jumped over the lazy dog',
                       style: TextStyle(color: widget._textColor),
                     )),
               ),

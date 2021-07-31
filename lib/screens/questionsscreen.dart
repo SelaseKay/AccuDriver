@@ -11,8 +11,6 @@ import 'package:hexcolor/hexcolor.dart';
 class QuestionsScreen extends StatefulWidget {
   double _expansionTileSize = 0.0;
 
-  bool _isGestureDetectorEnabled = true;
-
   QuestionsScreen({Key? key}) : super(key: key);
 
   @override
@@ -20,6 +18,9 @@ class QuestionsScreen extends StatefulWidget {
 }
 
 class _QuestionsScreenState extends State<QuestionsScreen> {
+
+  bool _isGestureDetectorEnabled = true;
+
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -97,10 +98,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   AnswerOption(
                     onAnswerSelected: (bool isCorrect){
                         setState(() {
-                          widget._isGestureDetectorEnabled = false;
+                          _isGestureDetectorEnabled = false;
                         });
                     },
-                    isGestureDetectorEnabled: widget._isGestureDetectorEnabled,
+                    isGestureDetectorEnabled: _isGestureDetectorEnabled,
                     marginTop: 0.0,
                     marginLeftRight: 32.0,
                     isCorrectIconVisible: false,
@@ -110,10 +111,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                   AnswerOption(
                     onAnswerSelected: (bool isCorrect){
                       setState(() {
-                        widget._isGestureDetectorEnabled = false;
+                        _isGestureDetectorEnabled = false;
                       });
                     },
-                    isGestureDetectorEnabled: widget._isGestureDetectorEnabled,
+                    isGestureDetectorEnabled: _isGestureDetectorEnabled,
                     marginTop: 8.0,
                     marginBottom: 8.0,
                     marginLeftRight: 32.0,
