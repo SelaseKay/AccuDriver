@@ -1,12 +1,9 @@
 import 'package:accudriver/answeroptionstates.dart';
-import 'package:accudriver/assets/Constants.dart';
 import 'package:accudriver/custom_widget/answeroption.dart';
 import 'package:accudriver/custom_widget/purplebackground.dart';
 import 'package:accudriver/custom_widget/questiondisplay.dart';
 import 'package:accudriver/model/answeroptionmodel.dart';
-import 'package:accudriver/model/questionscreenmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class QuestionsScreen extends StatefulWidget {
@@ -21,7 +18,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: _QuestionPage()),
+      home: Scaffold(
+          body: ChangeNotifierProvider(
+              create: (context) => AnswerOptionModel(),
+              child: _QuestionPage())),
     );
   }
 }
@@ -36,10 +36,10 @@ class _QuestionPage extends StatefulWidget {
 }
 
 class __QuestionPageState extends State<_QuestionPage> {
+
+  // Answer Option States
   AnswerOptionState _ansOpt1State = AnswerOptionState();
   AnswerOptionState _ansOpt2State = AnswerOptionState();
-
-  bool _isGestureDetectDisabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +62,9 @@ class __QuestionPageState extends State<_QuestionPage> {
 
     final double timerWidth = (screenWidth - 48) / 3;
 
-    // final answerOptionModel = Provider.of<AnswerOptionModel>(context);
 
-    // Answer option states
+    // Provider
+    final _answerOptionModel = Provider.of<AnswerOptionModel>(context);
 
     return Container(
       height: double.infinity,
@@ -109,45 +109,24 @@ class __QuestionPageState extends State<_QuestionPage> {
                 height: widget._expansionTileSize,
               ),
               AbsorbPointer(
-                absorbing: _isGestureDetectDisabled,
+                absorbing: _answerOptionModel.isAnswerOptClickDisabled,
                 child: AnswerOption(
                   answerOptionState: _ansOpt1State,
                   onAnswerSelected:
                       (bool isCorrect, bool isGestureDetectorDisabled) {
-                    // ansOpt1State =
-                    //     answerOptionModel.answerOptionState;
-
-                    setState(() {
-                      if (isCorrect) {
-                        _ansOpt1State = CorrectAnswerState();
-                      } else {
-                        _ansOpt1State = WrongAnswerState();
-                      }
-                      _isGestureDetectDisabled = true;
-                    });
+                    _ansOpt1State = _answerOptionModel.answerOptionState;
                   },
                   marginTop: 0.0,
                   marginLeftRight: 32.0,
                 ),
               ),
               AbsorbPointer(
-                absorbing: _isGestureDetectDisabled,
+                absorbing: _answerOptionModel.isAnswerOptClickDisabled,
                 child: AnswerOption(
                   answerOptionState: _ansOpt2State,
                   onAnswerSelected:
                       (bool isCorrect, bool isGestureDetectorEnabled) {
-                    print("object");
-                    // ansOpt2State =
-                    //     answerOptionModel.answerOptionState;
-
-                    setState(() {
-                      if (isCorrect) {
-                        _ansOpt2State = CorrectAnswerState();
-                      } else {
-                        _ansOpt2State = WrongAnswerState();
-                      }
-                      _isGestureDetectDisabled = true;
-                    });
+                    _ansOpt2State = _answerOptionModel.answerOptionState;
                   },
                   marginTop: 8.0,
                   marginBottom: 8.0,
