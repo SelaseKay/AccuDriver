@@ -21,8 +21,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          body: _QuestionPage()),
+      home: Scaffold(body: _QuestionPage()),
     );
   }
 }
@@ -37,6 +36,11 @@ class _QuestionPage extends StatefulWidget {
 }
 
 class __QuestionPageState extends State<_QuestionPage> {
+  AnswerOptionState _ansOpt1State = AnswerOptionState();
+  AnswerOptionState _ansOpt2State = AnswerOptionState();
+
+  bool _isGestureDetectDisabled = false;
+
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -61,10 +65,6 @@ class __QuestionPageState extends State<_QuestionPage> {
     // final answerOptionModel = Provider.of<AnswerOptionModel>(context);
 
     // Answer option states
-    AnswerOptionState _ansOpt1State = AnswerOptionState();
-    AnswerOptionState _ansOpt2State = AnswerOptionState();
-
-    bool _isGestureDetectDisabled = false;
 
     return Container(
       height: double.infinity,
@@ -167,5 +167,4 @@ class __QuestionPageState extends State<_QuestionPage> {
       ),
     );
   }
-
 }

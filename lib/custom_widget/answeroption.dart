@@ -52,13 +52,6 @@ class _AnswerOptionState extends State<AnswerOption> {
     return GestureDetector(
       onTap: () {
         print("onclicked");
-        // answerOptionModel.checkAnswerCorrectness(
-        //     widget.option, widget.correctAnswer);
-        //  answerOptionModel.setAnswerOptionProps(answerOptionModel.isCorrectAnswer);
-        // answerOptionModel.setAnswerClickState(true);
-        // answerOptionModel.checkAnswerCorrectness(widget.option, widget.correctAnswer);
-        // widget.onAnswerSelected(answerOptionModel.isCorrectAnswer, true);
-        // answerOptionModel.setAnswerClickState(true);
         setState(() {
           _checkAnswerCorrectness();
          
