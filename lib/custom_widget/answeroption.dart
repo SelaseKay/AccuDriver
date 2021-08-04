@@ -1,4 +1,4 @@
-import 'package:accudriver/answeroptionstates.dart';
+import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

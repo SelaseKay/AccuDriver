@@ -1,4 +1,4 @@
-import 'package:accudriver/answeroptionstates.dart';
+import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:accudriver/custom_widget/answeroption.dart';
 import 'package:accudriver/custom_widget/purplebackground.dart';
 import 'package:accudriver/custom_widget/questiondisplay.dart';

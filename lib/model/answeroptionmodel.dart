@@ -1,4 +1,4 @@
-import 'package:accudriver/answeroptionstates.dart';
+import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:accudriver/assets/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
