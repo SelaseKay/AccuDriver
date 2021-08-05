@@ -8,13 +8,15 @@ class TimerPainter extends CustomPainter with ChangeNotifier {
   final double? parentHeight;
   final double? parentWidth;
   final double animatedValue;
+  Function onTimeLeftChanged;
   int _timeLeft = 29;
   int _oldAnimatedValue = 0;
 
   TimerPainter(
       {this.parentHeight,
       this.parentWidth,
-      required this.animatedValue});
+      required this.animatedValue,
+      required this.onTimeLeftChanged});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -75,7 +77,7 @@ class TimerPainter extends CustomPainter with ChangeNotifier {
   }
 
   _drawTimerCircle(Paint paint, Canvas canvas) {
-
+    //check if animated value is between 0.0 and 30.0(excluding 0.0 and 30.0)
     if (animatedValue % 1 != 0) {
       // check if animation is not paused
       if (_oldAnimatedValue != animatedValue.toInt()) {
@@ -86,18 +88,18 @@ class TimerPainter extends CustomPainter with ChangeNotifier {
         paint.color = Colors.red;
       }
     } else {
-      _timeLeft = 0;
+      if (animatedValue.toInt() == 30) {
+        _timeLeft = 0;
+        onTimeLeftChanged(_timeLeft);
+      } else {
+        _timeLeft = 29;
+      }
     }
-
 
     var rect = Rect.fromLTRB(paint.strokeWidth, paint.strokeWidth,
         parentWidth! - paint.strokeWidth, parentHeight! - paint.strokeWidth);
 
     canvas.drawArc(rect, _getRadianValue(), _getRadianValue(360), false, paint);
-
-    // paint.color = Colors.white;
-    // canvas.drawArc(rect, _getRadianValue(),
-    //     _getRadianValue(_convertToDegrees(animatedValue)), false, paint);
   }
 
   _drawTimerProgress(Paint paint, Canvas canvas) {

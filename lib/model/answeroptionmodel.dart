@@ -2,6 +2,7 @@ import 'package:accudriver/database/questiondb.dart';
 import 'package:accudriver/model/question.dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:flutter/material.dart';
+import 'dart:developer' as developer;
 
 class AnswerOptionModel extends ChangeNotifier {
   bool _isCorrectAnswer = false;
@@ -34,28 +35,36 @@ class AnswerOptionModel extends ChangeNotifier {
 
   updateQuestion(AnimationController controller) {
     if (_isAnswerSelected) {
-      if (_currentQuestionIdx < _dbInstance.questionList.length - 1) {
-        _currentQuestionIdx++;
-        _question = _dbInstance.questionList[_currentQuestionIdx];
-        _resetTimer(controller);
-        refreshAnswerOptionState();
-        notifyListeners();
-      }
+      _goToNextQuestion(controller);
     } 
+    //check if no option is selected and time is up
+    else if (!_isAnswerSelected && controller.value.toInt() == 30) {
+      _goToNextQuestion(controller);
+    }
   }
 
-  _resetTimer(AnimationController controller){
+  _goToNextQuestion(AnimationController controller) {
+    if (_currentQuestionIdx < _dbInstance.questionList.length - 1) {
+      _currentQuestionIdx++;
+      _question = _dbInstance.questionList[_currentQuestionIdx];
+      _resetTimer(controller);
+      refreshAnswerOptionState();
+      notifyListeners();
+    }
+  }
+
+  _resetTimer(AnimationController controller) {
     controller.reset();
     controller.forward();
   }
 
-  _incrementCorrectAnswerCounter(){
-    _correctAnswerCounter ++;
+  _incrementCorrectAnswerCounter() {
+    _correctAnswerCounter++;
     notifyListeners();
   }
 
-  _incrementWrongAnswerCounter(){
-    _wrongAnswerCounter ++;
+  _incrementWrongAnswerCounter() {
+    _wrongAnswerCounter++;
     notifyListeners();
   }
 
@@ -81,6 +90,11 @@ class AnswerOptionModel extends ChangeNotifier {
 
   setAnswerClickState(bool disabled) {
     _isAnswerOptClickDisabled = disabled;
+    developer.log("isOnClickDisabled: $disabled", name: "setAnswerClickState");
     notifyListeners();
+  }
+
+  setAnswerClickState1(bool disabled){
+    _isAnswerOptClickDisabled = disabled;
   }
 }

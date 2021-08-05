@@ -1,6 +1,8 @@
 import 'package:accudriver/custom_widget/timerpainter.dart';
+import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:accudriver/model/timermodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 class Timer extends StatefulWidget {
@@ -46,12 +48,21 @@ class _TimerState extends State<Timer> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final _timerModel = Provider.of<TimerModel>(context);
 
+    final _answerOptionModel = Provider.of<AnswerOptionModel>(context);
+
+
     _timerModel.setController(controller);
     return Container(
       child: CustomPaint(
         painter: TimerPainter(
             parentHeight: widget.parentHeight,
             parentWidth: widget.parentWidth,
+            onTimeLeftChanged: (timeLeft) {
+              SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+                
+              });
+              if (timeLeft == 0) _answerOptionModel.setAnswerClickState(true);
+            },
             animatedValue: animation.value),
       ),
     );
