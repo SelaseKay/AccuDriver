@@ -1,12 +1,13 @@
 import 'package:accudriver/custom_widget/timerpainter.dart';
+import 'package:accudriver/model/timermodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Timer extends StatefulWidget {
   final double? parentHeight;
   final double? parentWidth;
 
-  const Timer({Key? key, this.parentHeight, this.parentWidth})
-      : super(key: key);
+  Timer({Key? key, this.parentHeight, this.parentWidth}) : super(key: key);
 
   @override
   _TimerState createState() => _TimerState();
@@ -43,13 +44,16 @@ class _TimerState extends State<Timer> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final _timerModel = Provider.of<TimerModel>(context);
+
+    _timerModel.setController(controller);
     return Container(
-            child: CustomPaint(
-              painter: TimerPainter(
-                  parentHeight: widget.parentHeight,
-                  parentWidth: widget.parentWidth,
-                  animatedValue: animation.value),
-            ),
-        );
+      child: CustomPaint(
+        painter: TimerPainter(
+            parentHeight: widget.parentHeight,
+            parentWidth: widget.parentWidth,
+            animatedValue: animation.value),
+      ),
+    );
   }
 }

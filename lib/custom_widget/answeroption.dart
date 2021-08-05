@@ -67,7 +67,7 @@ class AnswerOption extends StatelessWidget {
                 child: Padding(
                     padding: EdgeInsets.only(top: 8.0, bottom: 8.0, left: 8.0),
                     child: Text(
-                      'The quick brown fox jumped over the lazy dog',
+                      "$option",
                       style: TextStyle(color: _textColor),
                     )),
               ),

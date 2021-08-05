@@ -6,7 +6,6 @@ import 'package:accudriver/custom_widget/currentquestionIndicator.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class QuestionDisplay extends StatefulWidget {
-
   double _expansionTileSize = 0.0;
 
   final double screenWidth;
@@ -15,11 +14,17 @@ class QuestionDisplay extends StatefulWidget {
 
   final double questionViewWidth;
 
+  String questionText;
+
   final double questionImageSize;
 
   String currentQuestionNum;
 
   String totalQuestionNum;
+
+  double leftScoreBarWidth;
+
+  double rightScoreBarWidth;
 
   String leftScore;
 
@@ -34,9 +39,12 @@ class QuestionDisplay extends StatefulWidget {
       required this.screenWidth,
       required this.timerHeight,
       required this.questionViewWidth,
+      required this.questionText,
       required this.questionImageSize,
       this.currentQuestionNum = "",
       this.totalQuestionNum = "",
+      this.leftScoreBarWidth = 4.0,
+      this.rightScoreBarWidth = 4.0,
       this.leftScore = "",
       this.rightScore = "",
       required this.onExpansionTileChanged(double)})
@@ -77,7 +85,6 @@ class _QuestionDisplayState extends State<QuestionDisplay> {
             },
             child: Column(
               children: [
-
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
@@ -91,40 +98,36 @@ class _QuestionDisplayState extends State<QuestionDisplay> {
                             parentWidth: widget.timerHeight),
                       ),
                     ),
-
                     ScoreBoard(
                       questionViewWidth: widget.questionViewWidth,
+                      scoreBarWidth: widget.leftScoreBarWidth,
                       timerSize: widget.timerHeight,
                       leftText: widget.leftScore,
                       marginTop: 16.0,
                       marginLeft: 8.0,
-                      barColor: HexColor('#8ECF94'),
+                      barColor: HexColor('#D86B6B'),
                     ),
-
                     ScoreBoard(
                       questionViewWidth: widget.questionViewWidth,
+                      scoreBarWidth: widget.rightScoreBarWidth,
                       timerSize: widget.timerHeight,
                       rightText: widget.rightScore,
-                      barColor: HexColor('#D86B6B'),
+                      barColor: HexColor('#8ECF94'),
                       marginLeft: (widget.questionViewWidth / 2) +
                           (widget.timerHeight / 2) -
                           8.0,
                       marginTop: 16.0,
                     ),
-
                   ],
                 ),
-
                 CurrentQuestionIndicator(
                   questionViewWidth: widget.questionViewWidth,
-                  currentQuestionNum: '13',
-                  totalQuestionNum: '20',
+                  currentQuestionNum: widget.currentQuestionNum,
+                  totalQuestionNum: widget.totalQuestionNum,
                 ),
-
                 ExpansionTile(
                   trailing: SizedBox.shrink(),
-                  title: Text(
-                      'Which of the following is part of the car\'s mainstream '),
+                  title: Text("${widget.questionText}"),
                   tilePadding: EdgeInsets.only(
                       top: 16.0, bottom: 8.0, right: 16.0, left: 16.0),
                   children: [
@@ -141,7 +144,6 @@ class _QuestionDisplayState extends State<QuestionDisplay> {
                     if (bool) {}
                   },
                 ),
-
               ],
             ),
           ),

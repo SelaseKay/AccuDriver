@@ -4,10 +4,10 @@ import 'package:hexcolor/hexcolor.dart';
 class ScoreBoard extends StatefulWidget {
   final double questionViewWidth;
   final double timerSize;
+  double scoreBarWidth;
   String leftText;
   String rightText;
   HexColor? barColor;
-
   double marginTop;
   double marginLeft;
   double marginRigt;
@@ -21,6 +21,7 @@ class ScoreBoard extends StatefulWidget {
       this.leftText = '',
       this.rightText = '',
       this.barColor,
+      this.scoreBarWidth = 4.0,
       this.marginLeft = 0.0,
       this.marginRigt = 0.0,
       this.marginTop = 0.0,
@@ -59,7 +60,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
               borderRadius: BorderRadius.all(Radius.circular(30)),
               color: widget.barColor),
           height: 6.0,
-          width: maxWidthOfBar,
+          width: widget.scoreBarWidth,
         ),
         Container(
           margin: EdgeInsets.only(left: 6.0, top: widget.marginTop),
