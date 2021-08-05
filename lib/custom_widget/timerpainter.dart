@@ -8,15 +8,13 @@ class TimerPainter extends CustomPainter with ChangeNotifier {
   final double? parentHeight;
   final double? parentWidth;
   final double animatedValue;
-  Function onTimeLeftChanged;
   int _timeLeft = 29;
   int _oldAnimatedValue = 0;
 
   TimerPainter(
       {this.parentHeight,
       this.parentWidth,
-      required this.animatedValue,
-      required this.onTimeLeftChanged});
+      required this.animatedValue});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -90,7 +88,6 @@ class TimerPainter extends CustomPainter with ChangeNotifier {
     } else {
       if (animatedValue.toInt() == 30) {
         _timeLeft = 0;
-        onTimeLeftChanged(_timeLeft);
       } else {
         _timeLeft = 29;
       }

@@ -1,9 +1,11 @@
+import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:accudriver/custom_widget/scoreboard.dart';
 import 'package:accudriver/utils/widgetsize.dart';
 import 'package:accudriver/custom_widget/timer.dart';
 import 'package:accudriver/custom_widget/currentquestionIndicator.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 
 class QuestionDisplay extends StatefulWidget {
   double _expansionTileSize = 0.0;
@@ -55,8 +57,12 @@ class QuestionDisplay extends StatefulWidget {
 }
 
 class _QuestionDisplayState extends State<QuestionDisplay> {
+  
+
   @override
   Widget build(BuildContext context) {
+    final _answerOptionModel = Provider.of<AnswerOptionModel>(context);
+
     return Column(
       children: [
         //Positioned(
@@ -94,6 +100,13 @@ class _QuestionDisplayState extends State<QuestionDisplay> {
                       top: -(widget.timerHeight / 2),
                       child: Container(
                         child: Timer(
+                            onTimeUp: (animatedValue){
+                              print("${animatedValue.toInt()}");
+                                if(animatedValue.toInt() == 30){
+                                  _answerOptionModel.setAnswerClickState(true);
+                                  _answerOptionModel.setAnimatedValue(30);
+                                }
+                            },
                             parentHeight: widget.timerHeight,
                             parentWidth: widget.timerHeight),
                       ),

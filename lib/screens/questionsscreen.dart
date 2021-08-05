@@ -79,6 +79,8 @@ class __QuestionPageState extends State<_QuestionPage> {
     // Provider
     final _answerOptionModel = Provider.of<AnswerOptionModel>(context);
 
+    final _isAnswerOptClickDisabled = context.select<AnswerOptionModel, bool>((value) => value.isAnswerOptClickDisabled);
+
     final _timerModel = Provider.of<TimerModel>(context);
 
     return Container(
@@ -136,7 +138,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                 height: widget._expansionTileSize,
               ),
               AbsorbPointer(
-                absorbing: _answerOptionModel.isAnswerOptClickDisabled,
+                absorbing: _isAnswerOptClickDisabled,
                 child: AnswerOption(
                   answerOptionState: _ansOpt1State,
                   onAnswerSelected:
@@ -151,7 +153,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                 ),
               ),
               AbsorbPointer(
-                absorbing: _answerOptionModel.isAnswerOptClickDisabled,
+                absorbing: _isAnswerOptClickDisabled,
                 child: AnswerOption(
                   answerOptionState: _ansOpt2State,
                   onAnswerSelected:
@@ -167,7 +169,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                 ),
               ),
               AbsorbPointer(
-                absorbing: _answerOptionModel.isAnswerOptClickDisabled,
+                absorbing: _isAnswerOptClickDisabled,
                 child: AnswerOption(
                   answerOptionState: _ansOpt3State,
                   onAnswerSelected:
@@ -183,7 +185,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                 ),
               ),
               AbsorbPointer(
-                absorbing: _answerOptionModel.isAnswerOptClickDisabled,
+                absorbing: _isAnswerOptClickDisabled,
                 child: AnswerOption(
                   answerOptionState: _ansOpt4State,
                   onAnswerSelected:

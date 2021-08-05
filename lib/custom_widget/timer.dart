@@ -9,7 +9,9 @@ class Timer extends StatefulWidget {
   final double? parentHeight;
   final double? parentWidth;
 
-  Timer({Key? key, this.parentHeight, this.parentWidth}) : super(key: key);
+  Function onTimeUp;
+
+  Timer({Key? key, this.parentHeight, this.parentWidth, required this.onTimeUp}) : super(key: key);
 
   @override
   _TimerState createState() => _TimerState();
@@ -48,7 +50,10 @@ class _TimerState extends State<Timer> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     final _timerModel = Provider.of<TimerModel>(context);
 
-    final _answerOptionModel = Provider.of<AnswerOptionModel>(context);
+    controller.addListener(() {
+      if(animation.value.toInt() == 30)
+        widget.onTimeUp(animation.value);
+    });
 
 
     _timerModel.setController(controller);
@@ -57,12 +62,6 @@ class _TimerState extends State<Timer> with SingleTickerProviderStateMixin {
         painter: TimerPainter(
             parentHeight: widget.parentHeight,
             parentWidth: widget.parentWidth,
-            onTimeLeftChanged: (timeLeft) {
-              SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
-                
-              });
-              if (timeLeft == 0) _answerOptionModel.setAnswerClickState(true);
-            },
             animatedValue: animation.value),
       ),
     );

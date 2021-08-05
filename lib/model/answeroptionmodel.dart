@@ -33,12 +33,15 @@ class AnswerOptionModel extends ChangeNotifier {
 
   bool _isAnswerSelected = false;
 
+  int _animatedValue = 0;
+
   updateQuestion(AnimationController controller) {
+    developer.log("${controller.value}", name: "updateQuestion");
     if (_isAnswerSelected) {
       _goToNextQuestion(controller);
     } 
     //check if no option is selected and time is up
-    else if (!_isAnswerSelected && controller.value.toInt() == 30) {
+    else if (!_isAnswerSelected && _animatedValue == 30) {
       _goToNextQuestion(controller);
     }
   }
@@ -96,5 +99,9 @@ class AnswerOptionModel extends ChangeNotifier {
 
   setAnswerClickState1(bool disabled){
     _isAnswerOptClickDisabled = disabled;
+  }
+
+  setAnimatedValue(int value){
+    _animatedValue = value;
   }
 }
