@@ -1,4 +1,5 @@
 import 'package:accudriver/database/questiondb.dart';
+import 'package:accudriver/dialog/nextdialog.dart';
 import 'package:accudriver/model/question.dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ class AnswerOptionModel extends ChangeNotifier {
   int get currentQuestionIdx => _currentQuestionIdx;
   int get currentQuestionNum => _currentQuestionIdx + 1;
 
+  Function _onTimeUpListener = (){};
+
   int get totalQuestionNum => _dbInstance.questionList.length;
 
   QuestionDb _dbInstance = QuestionDb.instance;
@@ -33,16 +36,20 @@ class AnswerOptionModel extends ChangeNotifier {
 
   bool _isAnswerSelected = false;
 
-  int _animatedValue = 0;
+  bool _isTimeUp = false;
 
-  updateQuestion(AnimationController controller) {
+  updateQuestion(AnimationController controller, BuildContext context) {
     developer.log("${controller.value}", name: "updateQuestion");
     if (_isAnswerSelected) {
       _goToNextQuestion(controller);
     } 
     //check if no option is selected and time is up
-    else if (!_isAnswerSelected && _animatedValue == 30) {
+    else if (!_isAnswerSelected && _isTimeUp) {
       _goToNextQuestion(controller);
+    }
+    else{
+      controller.stop();
+      showNextDialog(controller,context);
     }
   }
 
@@ -75,6 +82,7 @@ class AnswerOptionModel extends ChangeNotifier {
     _answerOptionState = AnswerOptionState();
     _isAnswerSelected = false;
     _isAnswerOptClickDisabled = false;
+    _isTimeUp = false;
   }
 
   checkAnswerCorrectness(String option, String correctAnswer) {
@@ -101,7 +109,14 @@ class AnswerOptionModel extends ChangeNotifier {
     _isAnswerOptClickDisabled = disabled;
   }
 
-  setAnimatedValue(int value){
-    _animatedValue = value;
+  setTimeUpState(bool isTimeUp){
+    _isTimeUp = isTimeUp;
+    // _onTimeUpListener();
   }
+
+  setOnTimeUpListener(Function onTimeUpListener){
+    _onTimeUpListener = onTimeUpListener;
+  }
+
 }
+

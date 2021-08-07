@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:accudriver/model/timermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 

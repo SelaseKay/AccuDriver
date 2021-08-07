@@ -1,8 +1,7 @@
 import 'package:accudriver/custom_widget/timerpainter.dart';
-import 'package:accudriver/model/answeroptionmodel.dart';
+import 'package:accudriver/dialog/timeupdialog.dart';
 import 'package:accudriver/model/timermodel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 class Timer extends StatefulWidget {
@@ -11,7 +10,8 @@ class Timer extends StatefulWidget {
 
   Function onTimeUp;
 
-  Timer({Key? key, this.parentHeight, this.parentWidth, required this.onTimeUp}) : super(key: key);
+  Timer({Key? key, this.parentHeight, this.parentWidth, required this.onTimeUp})
+      : super(key: key);
 
   @override
   _TimerState createState() => _TimerState();
@@ -37,24 +37,25 @@ class _TimerState extends State<Timer> with SingleTickerProviderStateMixin {
         setState(() {});
       });
 
+    controller.addListener(() {
+      if (animation.isCompleted) {
+        widget.onTimeUp(animation.value);
+        print("Time up");
+      }
+    });
+
     controller.forward();
   }
 
   @override
   void dispose() {
-    super.dispose();
     controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final _timerModel = Provider.of<TimerModel>(context);
-
-    controller.addListener(() {
-      if(animation.value.toInt() == 30)
-        widget.onTimeUp(animation.value);
-    });
-
 
     _timerModel.setController(controller);
     return Container(
@@ -65,5 +66,12 @@ class _TimerState extends State<Timer> with SingleTickerProviderStateMixin {
             animatedValue: animation.value),
       ),
     );
+  }
+
+  _onTimeUpListener() {
+    if (animation.value.toInt() == 30) {
+      widget.onTimeUp(animation.value);
+      print("Time up");
+    }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:accudriver/dialog/timeupdialog.dart';
 import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:accudriver/custom_widget/scoreboard.dart';
@@ -34,6 +35,8 @@ class QuestionDisplay extends StatefulWidget {
 
   Function onExpansionTileChanged;
 
+  Function onTimeUpListener;
+
   // Function onOptionSelected;
 
   QuestionDisplay(
@@ -49,6 +52,7 @@ class QuestionDisplay extends StatefulWidget {
       this.rightScoreBarWidth = 4.0,
       this.leftScore = "",
       this.rightScore = "",
+      required this.onTimeUpListener,
       required this.onExpansionTileChanged(double)})
       : super(key: key);
 
@@ -101,10 +105,10 @@ class _QuestionDisplayState extends State<QuestionDisplay> {
                       child: Container(
                         child: Timer(
                             onTimeUp: (animatedValue){
-                              print("${animatedValue.toInt()}");
                                 if(animatedValue.toInt() == 30){
                                   _answerOptionModel.setAnswerClickState(true);
-                                  _answerOptionModel.setAnimatedValue(30);
+                                  _answerOptionModel.setTimeUpState(true);
+                                  widget.onTimeUpListener();
                                 }
                             },
                             parentHeight: widget.timerHeight,

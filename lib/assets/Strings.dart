@@ -10,4 +10,10 @@ class Strings {
   static String generalKnowledgeOnDriving = 'General Knowledge On Driving';
   static String howMuchDoYouKnowAboutSigns = 'How Much Do You Know About Road Signs?';
   static String testYourSelfOnYourCar = 'Do You Know Stuff About Your Car?';
+  static String next = 'Next';
+  static String noOptSelected = 'No Option Selected!';
+  static String selectOpt = 'Select an option to proceed.';
+  static String ok = 'OK';
+  static String timeUp = 'Time Up';
+  static String timeIsUp = 'Your time is up. Tap next to proceed.';
   }

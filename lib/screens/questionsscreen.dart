@@ -1,4 +1,7 @@
+import 'package:accudriver/assets/Strings.dart';
+import 'package:accudriver/custom_widget/nextbutton.dart';
 import 'package:accudriver/database/questiondb.dart';
+import 'package:accudriver/dialog/timeupdialog.dart';
 import 'package:accudriver/model/question.dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:accudriver/custom_widget/answeroption.dart';
@@ -7,6 +10,7 @@ import 'package:accudriver/custom_widget/questiondisplay.dart';
 import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:accudriver/model/timermodel.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 
 class QuestionsScreen extends StatefulWidget {
@@ -48,8 +52,6 @@ class __QuestionPageState extends State<_QuestionPage> {
 
   Question question = QuestionDb.instance.questionList[0];
 
-  int _timerAnimatedValue = 0;
-
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -76,12 +78,19 @@ class __QuestionPageState extends State<_QuestionPage> {
     final double maxWidthOfScoreBar =
         (questionViewWidth / 2) - (timerHeight / 2) - barPaddings;
 
-    // Provider
+    // Providers
     final _answerOptionModel = Provider.of<AnswerOptionModel>(context);
 
-    final _isAnswerOptClickDisabled = context.select<AnswerOptionModel, bool>((value) => value.isAnswerOptClickDisabled);
+    final _isAnswerOptClickDisabled = context.select<AnswerOptionModel, bool>(
+        (value) => value.isAnswerOptClickDisabled);
 
     final _timerModel = Provider.of<TimerModel>(context);
+
+    // _answerOptionModel.setOnTimeUpListener((){
+    //   showTimeUpDialog(context, (){
+    //     print("Time is up");
+    //   });
+    // });
 
     return Container(
       height: double.infinity,
@@ -127,6 +136,11 @@ class __QuestionPageState extends State<_QuestionPage> {
                         onExpansionTileChanged: (size) {
                           setState(() {
                             widget._expansionTileSize = size;
+                          });
+                        },
+                        onTimeUpListener: () {
+                          showTimeUpDialog(context, () {
+                            _onNextButtonClick(_answerOptionModel, _timerModel);
                           });
                         },
                       ),
@@ -200,14 +214,9 @@ class __QuestionPageState extends State<_QuestionPage> {
                   marginLeftRight: 32.0,
                 ),
               ),
-              Container(
-                  margin: EdgeInsets.only(top: 20.0),
-                  child: MaterialButton(
-                    onPressed: () =>
-                        _onNextButtonClick(_answerOptionModel, _timerModel),
-                    color: Colors.blue,
-                    height: 10.0,
-                  ))
+              NextButton(onPressed: () {
+                _onNextButtonClick(_answerOptionModel, _timerModel);
+              })
             ],
           ),
         ),
@@ -217,7 +226,7 @@ class __QuestionPageState extends State<_QuestionPage> {
 
   _onNextButtonClick(
       AnswerOptionModel answerOptionModel, TimerModel timerModel) {
-    answerOptionModel.updateQuestion(timerModel.controller!);
+    answerOptionModel.updateQuestion(timerModel.controller!, context);
     question = answerOptionModel.question;
     _refreshAnswerOptionStates(answerOptionModel);
   }
