@@ -6,6 +6,7 @@ import 'package:accudriver/utils/widgetsize.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 
+// ignore: must_be_immutable
 class QuestionsScreen extends StatefulWidget {
   late double _expansionTileSize = 0.0;
 
@@ -33,6 +34,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
     final double timerHeight = questionViewHeight * 0.5;
 
+    // ignore: unused_local_variable
     final double timerWidth = (screenWidth - 48) / 3;
 
     return MaterialApp(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 
+// ignore: must_be_immutable
 class ScoreBoard extends StatefulWidget {
   final double questionViewWidth;
   final double timerSize;

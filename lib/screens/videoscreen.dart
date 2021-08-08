@@ -1,7 +1,10 @@
-import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
+//import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-void main() => runApp(videoscreen());
+import 'package:video_player/video_player.dart';
+//import 'package:flutter/material.dart';
+
+//void main() => runApp(videoscreen());
 
 class videoscreen extends StatefulWidget {
   @override
@@ -10,35 +13,122 @@ class videoscreen extends StatefulWidget {
 
 class _videoscreenState extends State<videoscreen> {
   late VideoPlayerController _controller;
+  late VideoPlayerController _controller2;
+  late VideoPlayerController _controller1;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network('https://drive.google.com/uc?export=download&id=1oVMB2cHzzCWkLgh8ZQxUVGmLnJgECheH')
+    _controller1 = VideoPlayerController.asset('video/manualcar.mp4')
+      ..initialize().then((_) {
+        setState(() {
+          // _controller1.value.isPlaying
+          //     ? _controller1.pause()
+          //     : _controller1.play();
+        });
+      });
+    _controller2 = VideoPlayerController.asset('video/cockpitdrills.mp4')
+      ..initialize().then((_) {
+        setState(() {
+          // _controller2.value.isPlaying
+          //     ? _controller2.pause()
+          //     : _controller2.play();
+        });
+      });
+    _controller = VideoPlayerController.asset('video/carcontrols.mp4')
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
+        setState(() {
+          _;
+        });
       });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Video Demo',
       home: Scaffold(
+        backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('Video Tutorial'),
+          title: Text('Video Tutorials'),
         ),
-        body: Center(
-          child: _controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                )
-              : Container(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                  decoration:
+                      BoxDecoration(),
+                  child: GestureDetector(
+                    onDoubleTap: () {
+                      setState(() {
+                        _controller.pause();
+                      });
+                    },
+                    onTap: () {
+                      setState(() {
+                        _controller.play();
+                      });
+                    },
+                    child: AspectRatio(
+                      aspectRatio: _controller.value.aspectRatio,
+                      child: VideoPlayer(
+                        _controller,
+                      ),
+                    ),
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                  decoration:
+                      BoxDecoration(),
+                  child: GestureDetector(
+                    onDoubleTap: () {
+                      setState(() {
+                        _controller1.pause();
+                      });
+                    },
+                    onTap: () {
+                      setState(() {
+                        _controller1.play();
+                      });
+                    },
+                    child: AspectRatio(
+                      aspectRatio: _controller1.value.aspectRatio,
+                      child: VideoPlayer(
+                        _controller1,
+                      ),
+                    ),
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+             Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                  child: GestureDetector(
+                    onDoubleTap: () {
+                      setState(() {
+                        _controller2.pause();
+                      });
+                    },
+                    onTap: () {
+                      setState(() {
+                        _controller2.play();
+                      });
+                    },
+                    child: AspectRatio(
+                      aspectRatio: _controller2.value.aspectRatio,
+                      child: VideoPlayer(
+                        _controller2,
+                      ),
+                    ),
+                  )),
+            ],
+          ),
         ),
-        floatingActionButton: FloatingActionButton(
+        /*  floatingActionButton: FloatingActionButton(
           onPressed: () {
             setState(() {
               _controller.value.isPlaying
@@ -49,7 +139,7 @@ class _videoscreenState extends State<videoscreen> {
           child: Icon(
             _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
           ),
-        ),
+        ),*/
       ),
     );
   }
@@ -59,62 +149,4 @@ class _videoscreenState extends State<videoscreen> {
     super.dispose();
     _controller.dispose();
   }
-}
-
-class _ButterFlyAssetVideo extends StatefulWidget {
-  @override
-  _ButterFlyAssetVideoState createState() => _ButterFlyAssetVideoState();
-}
-
-class _ButterFlyAssetVideoState extends State<_ButterFlyAssetVideo> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.asset('assets/Butterfly-209.mp4');
-
-    _controller.addListener(() {
-      setState(() {});
-    });
-    _controller.setLooping(true);
-    _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(top: 20.0),
-          ),
-          const Text('With assets mp4'),
-          Container(
-            padding: const EdgeInsets.all(20),
-            child: AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: <Widget>[
-                  VideoPlayer(_controller),
-                  _ControlsOverlay(controller: _controller),
-                  VideoProgressIndicator(_controller, allowScrubbing: true),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _ControlsOverlay({required VideoPlayerController controller}) {}
 }

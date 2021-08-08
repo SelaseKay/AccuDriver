@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 
+// ignore: must_be_immutable
 class AnswerOption extends StatefulWidget {
   double marginTop;
   double marginBottom;
