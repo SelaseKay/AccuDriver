@@ -1,5 +1,7 @@
+import 'package:accudriver/assets/Strings.dart';
 import 'package:accudriver/database/questiondb.dart';
 import 'package:accudriver/dialog/nextdialog.dart';
+import 'package:accudriver/dialog/scoredialog.dart';
 import 'package:accudriver/model/question.dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:flutter/material.dart';
@@ -25,8 +27,6 @@ class AnswerOptionModel extends ChangeNotifier {
   int get currentQuestionIdx => _currentQuestionIdx;
   int get currentQuestionNum => _currentQuestionIdx + 1;
 
-  Function _onTimeUpListener = (){};
-
   int get totalQuestionNum => _dbInstance.questionList.length;
 
   QuestionDb _dbInstance = QuestionDb.instance;
@@ -42,14 +42,18 @@ class AnswerOptionModel extends ChangeNotifier {
     developer.log("${controller.value}", name: "updateQuestion");
     if (_isAnswerSelected) {
       _goToNextQuestion(controller);
-    } 
+    }
     //check if no option is selected and time is up
     else if (!_isAnswerSelected && _isTimeUp) {
-      _goToNextQuestion(controller);
-    }
-    else{
+      // check if you are on last question
+      if (_currentQuestionIdx + 1 == totalQuestionNum) {
+        showScoreDialog(context, getScoreString());
+      } else {
+        _goToNextQuestion(controller);
+      }
+    } else {
       controller.stop();
-      showNextDialog(controller,context);
+      showNextDialog(controller, context);
     }
   }
 
@@ -105,18 +109,20 @@ class AnswerOptionModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  setAnswerClickState1(bool disabled){
+  setAnswerClickState1(bool disabled) {
     _isAnswerOptClickDisabled = disabled;
   }
 
-  setTimeUpState(bool isTimeUp){
+  setTimeUpState(bool isTimeUp) {
     _isTimeUp = isTimeUp;
-    // _onTimeUpListener();
   }
 
-  setOnTimeUpListener(Function onTimeUpListener){
-    _onTimeUpListener = onTimeUpListener;
+  _getScore() {
+    return ((_correctAnswerCounter / totalQuestionNum) * 100)
+        .toStringAsFixed(2);
   }
 
+  getScoreString() {
+    return Strings.yourScoreIs + _getScore() + "%";
+  }
 }
-

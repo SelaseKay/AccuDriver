@@ -2,32 +2,29 @@ import 'package:accudriver/assets/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-Future<void> showTimeUpDialog(
-    BuildContext context, Function onNextPressed) async {
-  return await showDialog<void>(
+Future<void> showBeginTimerdialog(BuildContext context, Function onStartPressed) async {
+  return showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(Strings.timeUp),
-          content: (Text(Strings.timeIsUp)),
-          actions: <Widget>[
+          title: Text(Strings.ready),
+          content: Text(Strings.tapOnStart),
+          actions: [
             MaterialButton(
               onPressed: () {
+                onStartPressed();
                 Navigator.of(context).pop();
-                onNextPressed();
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8)),
               color: HexColor('64B96D'),
               child: Text(
-                Strings.next,
+                Strings.start,
                 style: TextStyle(color: Colors.white),
               ),
             )
           ],
-          elevation: 20.0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         );
       });
 }

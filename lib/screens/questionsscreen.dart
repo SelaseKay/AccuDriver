@@ -1,6 +1,7 @@
 import 'package:accudriver/assets/Strings.dart';
 import 'package:accudriver/custom_widget/nextbutton.dart';
 import 'package:accudriver/database/questiondb.dart';
+import 'package:accudriver/dialog/starttimerdialog.dart';
 import 'package:accudriver/dialog/timeupdialog.dart';
 import 'package:accudriver/model/question.dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
@@ -52,6 +53,18 @@ class __QuestionPageState extends State<_QuestionPage> {
 
   Question question = QuestionDb.instance.questionList[0];
 
+  late TimerModel _timerModel;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      showBeginTimerdialog(context, () {
+        _timerModel.controller!.forward();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -84,7 +97,7 @@ class __QuestionPageState extends State<_QuestionPage> {
     final _isAnswerOptClickDisabled = context.select<AnswerOptionModel, bool>(
         (value) => value.isAnswerOptClickDisabled);
 
-    final _timerModel = Provider.of<TimerModel>(context);
+    _timerModel = Provider.of<TimerModel>(context);
 
     // _answerOptionModel.setOnTimeUpListener((){
     //   showTimeUpDialog(context, (){
@@ -214,9 +227,12 @@ class __QuestionPageState extends State<_QuestionPage> {
                   marginLeftRight: 32.0,
                 ),
               ),
-              NextButton(onPressed: () {
-                _onNextButtonClick(_answerOptionModel, _timerModel);
-              })
+              Visibility(
+                visible: _getNextButtonVisibleState(_answerOptionModel),
+                child: NextButton(onPressed: () {
+                  _onNextButtonClick(_answerOptionModel, _timerModel);
+                }),
+              )
             ],
           ),
         ),
@@ -242,5 +258,9 @@ class __QuestionPageState extends State<_QuestionPage> {
     if (model.controller!.isAnimating) {
       model.controller!.stop();
     }
+  }
+
+  _getNextButtonVisibleState(AnswerOptionModel model) {
+    return model.currentQuestionNum == model.totalQuestionNum ? false : true;
   }
 }

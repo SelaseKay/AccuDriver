@@ -40,11 +40,10 @@ class _TimerState extends State<Timer> with SingleTickerProviderStateMixin {
     controller.addListener(() {
       if (animation.isCompleted) {
         widget.onTimeUp(animation.value);
-        print("Time up");
       }
     });
 
-    controller.forward();
+    // controller.forward();
   }
 
   @override
@@ -68,10 +67,4 @@ class _TimerState extends State<Timer> with SingleTickerProviderStateMixin {
     );
   }
 
-  _onTimeUpListener() {
-    if (animation.value.toInt() == 30) {
-      widget.onTimeUp(animation.value);
-      print("Time up");
-    }
-  }
 }

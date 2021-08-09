@@ -12,21 +12,18 @@ class ScoreBoard extends StatefulWidget {
   double marginLeft;
   double marginRigt;
 
-  
-
-  ScoreBoard(
-      {Key? key,
-      required this.questionViewWidth,
-      required this.timerSize,
-      this.leftText = '',
-      this.rightText = '',
-      this.barColor,
-      this.scoreBarWidth = 4.0,
-      this.marginLeft = 0.0,
-      this.marginRigt = 0.0,
-      this.marginTop = 0.0,
-      })
-      : super(key: key);
+  ScoreBoard({
+    Key? key,
+    required this.questionViewWidth,
+    required this.timerSize,
+    this.leftText = '',
+    this.rightText = '',
+    this.barColor,
+    this.scoreBarWidth = 4.0,
+    this.marginLeft = 0.0,
+    this.marginRigt = 0.0,
+    this.marginTop = 0.0,
+  }) : super(key: key);
 
   @override
   _ScoreBoardState createState() => _ScoreBoardState();
@@ -43,7 +40,8 @@ class _ScoreBoardState extends State<ScoreBoard> {
         child: Row(
       children: [
         Container(
-          margin: EdgeInsets.only(left: widget.marginLeft, top: widget.marginTop),
+          margin:
+              EdgeInsets.only(left: widget.marginLeft, top: widget.marginTop),
           child: Text(
             '${widget.leftText}',
             textAlign: TextAlign.center,
@@ -54,7 +52,8 @@ class _ScoreBoardState extends State<ScoreBoard> {
             ),
           ),
         ),
-        Container(
+        AnimatedContainer(
+          duration: Duration(milliseconds: 400),
           margin: EdgeInsets.only(left: 6.0, top: widget.marginTop),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(30)),
@@ -62,8 +61,9 @@ class _ScoreBoardState extends State<ScoreBoard> {
           height: 6.0,
           width: widget.scoreBarWidth,
         ),
+        Spacer(),
         Container(
-          margin: EdgeInsets.only(left: 6.0, top: widget.marginTop),
+          margin: EdgeInsets.only(left: 6.0, top: widget.marginTop, right: 8.0),
           child: Text(
             '${widget.rightText}',
             textAlign: TextAlign.center,

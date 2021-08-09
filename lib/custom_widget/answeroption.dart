@@ -1,3 +1,5 @@
+import 'package:accudriver/assets/Strings.dart';
+import 'package:accudriver/dialog/scoredialog.dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,10 +47,13 @@ class AnswerOption extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         print("onclicked");
-        _answerOptionModel.checkAnswerCorrectness(
-            option, correctAnswer);
+        _answerOptionModel.checkAnswerCorrectness(option, correctAnswer);
         _answerOptionModel.setAnswerClickState(true);
         onAnswerSelected(_answerOptionModel.isCorrectAnswer, true);
+        if (_answerOptionModel.currentQuestionNum ==
+            _answerOptionModel.totalQuestionNum) {
+          showScoreDialog(context, _answerOptionModel.getScoreString());
+        }
       },
       child: Container(
         width: double.infinity,
@@ -99,4 +104,5 @@ class AnswerOption extends StatelessWidget {
       ),
     );
   }
+
 }

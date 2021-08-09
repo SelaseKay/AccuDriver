@@ -16,4 +16,9 @@ class Strings {
   static String ok = 'OK';
   static String timeUp = 'Time Up';
   static String timeIsUp = 'Your time is up. Tap next to proceed.';
+  static String ready = 'Ready?';
+  static String tapOnStart = 'Tap on Start to begin the quiz.';
+  static String start = 'Start';
+  static String score = 'Score!';
+  static String yourScoreIs = 'Your score is ';
   }
