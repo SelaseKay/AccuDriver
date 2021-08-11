@@ -31,6 +31,7 @@ dependencies:
   hexcolor: ^2.0.4
   video_player: ^2.1.12
   provider: ^5.0.0
+  sqflite: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +52,7 @@ flutter:
   assets:
     - assets/images/
     - assets/videos/
+    - assets/db/quizquestions.db
 
   # fonts:
   #   - family: Dancing Script

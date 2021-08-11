@@ -1,3 +1,7 @@
+import 'dart:typed_data';
+
+import 'package:flutter/material.dart';
+
 class Question {
   int questionId;
   String questionText;
@@ -6,6 +10,7 @@ class Question {
   String optionC;
   String optionD;
   String correctAnswer;
+  Uint8List? questionImage;
 
   Question(
       {this.questionId = 0,
@@ -14,5 +19,6 @@ class Question {
       this.optionB = "",
       this.optionC = "",
       this.optionD = "",
+      this.questionImage,
       this.correctAnswer = ""});
 }

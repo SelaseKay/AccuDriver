@@ -51,8 +51,9 @@ class __QuestionPageState extends State<_QuestionPage> {
   AnswerOptionState _ansOpt3State = AnswerOptionState();
   AnswerOptionState _ansOpt4State = AnswerOptionState();
 
-  Question question = QuestionDb.instance.questionList[0];
+  // late Question question;
 
+  late AnswerOptionModel _answerOptionModel;
   late TimerModel _timerModel;
 
   @override
@@ -63,6 +64,7 @@ class __QuestionPageState extends State<_QuestionPage> {
         _timerModel.controller!.forward();
       });
     });
+    QuestionDb.instance.initDb();
   }
 
   @override
@@ -92,158 +94,197 @@ class __QuestionPageState extends State<_QuestionPage> {
         (questionViewWidth / 2) - (timerHeight / 2) - barPaddings;
 
     // Providers
-    final _answerOptionModel = Provider.of<AnswerOptionModel>(context);
-
-    final _isAnswerOptClickDisabled = context.select<AnswerOptionModel, bool>(
-        (value) => value.isAnswerOptClickDisabled);
-
-    _timerModel = Provider.of<TimerModel>(context);
 
     // _answerOptionModel.setOnTimeUpListener((){
     //   showTimeUpDialog(context, (){
     //     print("Time is up");
     //   });
     // });
+    _answerOptionModel = Provider.of<AnswerOptionModel>(context);
+
+    _timerModel = Provider.of<TimerModel>(context);
+
+    final _isAnswerOptClickDisabled = context.select<AnswerOptionModel, bool>(
+        (value) => value.isAnswerOptClickDisabled);
 
     return Container(
       height: double.infinity,
       width: double.infinity,
-      child: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                child: Stack(
-                  fit: StackFit.loose,
-                  clipBehavior: Clip.none,
-                  children: [
-                    Container(
-                      child: Column(),
-                    ),
-                    PurpleBackground(
-                        marginTop: statusBarHeight + statusBarHeight / 2,
-                        height: questionBackgroundHeight),
-                    Positioned(
-                      width: screenWidth,
-                      top: questionBackgroundHeight - (questionViewHeight / 4),
-                      child: QuestionDisplay(
-                        questionText: question.questionText,
-                        leftScoreBarWidth:
-                            (_answerOptionModel.wrongAnswerCounter / 3) *
-                                maxWidthOfScoreBar,
-                        rightScoreBarWidth:
-                            (_answerOptionModel.correctAnswerCounter / 3) *
-                                maxWidthOfScoreBar,
-                        screenWidth: screenWidth,
-                        questionViewWidth: questionViewWidth,
-                        questionImageSize: questionImageSize,
-                        currentQuestionNum:
-                            "${_answerOptionModel.currentQuestionNum}",
-                        totalQuestionNum:
-                            "${_answerOptionModel.totalQuestionNum}",
-                        timerHeight: timerHeight,
-                        leftScore: "${_answerOptionModel.wrongAnswerCounter}",
-                        rightScore:
-                            "${_answerOptionModel.correctAnswerCounter}",
-                        onExpansionTileChanged: (size) {
-                          setState(() {
-                            widget._expansionTileSize = size;
-                          });
-                        },
-                        onTimeUpListener: () {
-                          showTimeUpDialog(context, () {
-                            _onNextButtonClick(_answerOptionModel, _timerModel);
-                          });
-                        },
+      child: FutureBuilder(
+          future: _answerOptionModel.questions,
+          builder:
+              (BuildContext context, AsyncSnapshot<List<Question>> questions) {
+            if (questions.hasData)
+              return SingleChildScrollView(
+                child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        child: Stack(
+                          fit: StackFit.loose,
+                          clipBehavior: Clip.none,
+                          children: [
+                            Container(
+                              child: Column(),
+                            ),
+                            PurpleBackground(
+                                marginTop:
+                                    statusBarHeight + statusBarHeight / 2,
+                                height: questionBackgroundHeight),
+                            Positioned(
+                                width: screenWidth,
+                                top: questionBackgroundHeight -
+                                    (questionViewHeight / 4),
+                                child: QuestionDisplay(
+                                  questionText: questions
+                                      .data![
+                                          _answerOptionModel.currentQuestionIdx]
+                                      .questionText,
+                                  leftScoreBarWidth:
+                                      (_answerOptionModel.wrongAnswerCounter /
+                                              234) *
+                                          maxWidthOfScoreBar,
+                                  rightScoreBarWidth:
+                                      (_answerOptionModel.correctAnswerCounter /
+                                              234) *
+                                          maxWidthOfScoreBar,
+                                  screenWidth: screenWidth,
+                                  questionViewWidth: questionViewWidth,
+                                  questionImageSize: questionImageSize,
+                                  currentQuestionNum:
+                                      "${_answerOptionModel.currentQuestionNum}",
+                                  totalQuestionNum:
+                                      "${_answerOptionModel.totalQuestionNum}",
+                                  timerHeight: timerHeight,
+                                  leftScore:
+                                      "${_answerOptionModel.wrongAnswerCounter}",
+                                  rightScore:
+                                      "${_answerOptionModel.correctAnswerCounter}",
+                                  onExpansionTileChanged: (size) {
+                                    setState(() {
+                                      widget._expansionTileSize = size;
+                                    });
+                                  },
+                                  onTimeUpListener: () {
+                                    showTimeUpDialog(context, () {
+                                      _onNextButtonClick(
+                                          _answerOptionModel, _timerModel);
+                                    });
+                                  },
+                                )),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        height: widget._expansionTileSize,
+                      ),
+                      AbsorbPointer(
+                        absorbing: _isAnswerOptClickDisabled,
+                        child: AnswerOption(
+                          answerOptionState: _ansOpt1State,
+                          onAnswerSelected:
+                              (bool isCorrect, bool isGestureDetectorDisabled) {
+                            _ansOpt1State =
+                                _answerOptionModel.answerOptionState;
+                            _pauseTimer(_timerModel);
+                          },
+                          option: questions
+                              .data![_answerOptionModel.currentQuestionIdx]
+                              .optionA,
+                          correctAnswer: questions
+                              .data![_answerOptionModel.currentQuestionIdx]
+                              .correctAnswer,
+                          marginTop: 0.0,
+                          marginLeftRight: 32.0,
+                        ),
+                      ),
+                      AbsorbPointer(
+                        absorbing: _isAnswerOptClickDisabled,
+                        child: AnswerOption(
+                          answerOptionState: _ansOpt2State,
+                          onAnswerSelected:
+                              (bool isCorrect, bool isGestureDetectorEnabled) {
+                            _ansOpt2State =
+                                _answerOptionModel.answerOptionState;
+                            _pauseTimer(_timerModel);
+                          },
+                          option: questions
+                              .data![_answerOptionModel.currentQuestionIdx]
+                              .optionB,
+                          correctAnswer: questions
+                              .data![_answerOptionModel.currentQuestionIdx]
+                              .correctAnswer,
+                          marginTop: 8.0,
+                          marginBottom: 8.0,
+                          marginLeftRight: 32.0,
+                        ),
+                      ),
+                      AbsorbPointer(
+                        absorbing: _isAnswerOptClickDisabled,
+                        child: AnswerOption(
+                          answerOptionState: _ansOpt3State,
+                          onAnswerSelected:
+                              (bool isCorrect, bool isGestureDetectorEnabled) {
+                            _ansOpt3State =
+                                _answerOptionModel.answerOptionState;
+                            _pauseTimer(_timerModel);
+                          },
+                          option: questions
+                              .data![_answerOptionModel.currentQuestionIdx]
+                              .optionC,
+                          correctAnswer: questions
+                              .data![_answerOptionModel.currentQuestionIdx]
+                              .correctAnswer,
+                          marginTop: 8.0,
+                          marginBottom: 8.0,
+                          marginLeftRight: 32.0,
+                        ),
+                      ),
+                      AbsorbPointer(
+                        absorbing: _isAnswerOptClickDisabled,
+                        child: AnswerOption(
+                          answerOptionState: _ansOpt4State,
+                          onAnswerSelected:
+                              (bool isCorrect, bool isGestureDetectorEnabled) {
+                            _ansOpt4State =
+                                _answerOptionModel.answerOptionState;
+                            _pauseTimer(_timerModel);
+                          },
+                          option: questions
+                              .data![_answerOptionModel.currentQuestionIdx]
+                              .optionD,
+                          correctAnswer: questions
+                              .data![_answerOptionModel.currentQuestionIdx]
+                              .correctAnswer,
+                          marginTop: 8.0,
+                          marginBottom: 8.0,
+                          marginLeftRight: 32.0,
+                        ),
+                      ),
+                      Visibility(
+                        visible: _getNextButtonVisibleState(_answerOptionModel),
+                        child: NextButton(onPressed: () {
+                          _onNextButtonClick(_answerOptionModel, _timerModel);
+                        }),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                height: widget._expansionTileSize,
-              ),
-              AbsorbPointer(
-                absorbing: _isAnswerOptClickDisabled,
-                child: AnswerOption(
-                  answerOptionState: _ansOpt1State,
-                  onAnswerSelected:
-                      (bool isCorrect, bool isGestureDetectorDisabled) {
-                    _ansOpt1State = _answerOptionModel.answerOptionState;
-                    _pauseTimer(_timerModel);
-                  },
-                  option: question.optionA,
-                  correctAnswer: question.correctAnswer,
-                  marginTop: 0.0,
-                  marginLeftRight: 32.0,
-                ),
-              ),
-              AbsorbPointer(
-                absorbing: _isAnswerOptClickDisabled,
-                child: AnswerOption(
-                  answerOptionState: _ansOpt2State,
-                  onAnswerSelected:
-                      (bool isCorrect, bool isGestureDetectorEnabled) {
-                    _ansOpt2State = _answerOptionModel.answerOptionState;
-                    _pauseTimer(_timerModel);
-                  },
-                  option: question.optionB,
-                  correctAnswer: question.correctAnswer,
-                  marginTop: 8.0,
-                  marginBottom: 8.0,
-                  marginLeftRight: 32.0,
-                ),
-              ),
-              AbsorbPointer(
-                absorbing: _isAnswerOptClickDisabled,
-                child: AnswerOption(
-                  answerOptionState: _ansOpt3State,
-                  onAnswerSelected:
-                      (bool isCorrect, bool isGestureDetectorEnabled) {
-                    _ansOpt3State = _answerOptionModel.answerOptionState;
-                    _pauseTimer(_timerModel);
-                  },
-                  option: question.optionC,
-                  correctAnswer: question.correctAnswer,
-                  marginTop: 8.0,
-                  marginBottom: 8.0,
-                  marginLeftRight: 32.0,
-                ),
-              ),
-              AbsorbPointer(
-                absorbing: _isAnswerOptClickDisabled,
-                child: AnswerOption(
-                  answerOptionState: _ansOpt4State,
-                  onAnswerSelected:
-                      (bool isCorrect, bool isGestureDetectorEnabled) {
-                    _ansOpt4State = _answerOptionModel.answerOptionState;
-                    _pauseTimer(_timerModel);
-                  },
-                  option: question.optionD,
-                  correctAnswer: question.correctAnswer,
-                  marginTop: 8.0,
-                  marginBottom: 8.0,
-                  marginLeftRight: 32.0,
-                ),
-              ),
-              Visibility(
-                visible: _getNextButtonVisibleState(_answerOptionModel),
-                child: NextButton(onPressed: () {
-                  _onNextButtonClick(_answerOptionModel, _timerModel);
-                }),
-              )
-            ],
-          ),
-        ),
-      ),
+              );
+            return Center(
+                child: SizedBox(
+                    height: 40.0,
+                    width: 40.0,
+                    child: CircularProgressIndicator()));
+          }),
     );
   }
 
   _onNextButtonClick(
-      AnswerOptionModel answerOptionModel, TimerModel timerModel) {
+      AnswerOptionModel answerOptionModel, TimerModel timerModel) async {
     answerOptionModel.updateQuestion(timerModel.controller!, context);
-    question = answerOptionModel.question;
+    // question = answerOptionModel.question;
     _refreshAnswerOptionStates(answerOptionModel);
   }
 
@@ -262,5 +303,12 @@ class __QuestionPageState extends State<_QuestionPage> {
 
   _getNextButtonVisibleState(AnswerOptionModel model) {
     return model.currentQuestionNum == model.totalQuestionNum ? false : true;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    QuestionDb.instance.closeDb();
   }
 }

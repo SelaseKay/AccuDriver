@@ -27,16 +27,35 @@ class AnswerOptionModel extends ChangeNotifier {
   int get currentQuestionIdx => _currentQuestionIdx;
   int get currentQuestionNum => _currentQuestionIdx + 1;
 
-  int get totalQuestionNum => _dbInstance.questionList.length;
+  List<Question> _questions = List.empty();
+
+  int get totalQuestionNum => _questions.length;
 
   QuestionDb _dbInstance = QuestionDb.instance;
-
-  Question _question = QuestionDb.instance.questionList[0];
-  Question get question => _question;
 
   bool _isAnswerSelected = false;
 
   bool _isTimeUp = false;
+
+  Future<List<Question>> get questions async{
+    _questions = await _dbInstance.getQuestions();
+    return _questions;
+  }
+
+  // Future<Question> getQuestion() async{
+  //     var questions = await getQuestions();
+  //     return await questions[currentQuestionIdx];
+  // }
+
+  // Question get question {
+    
+  // }
+
+  // Question get question async{
+  //   _getQuestions();
+  //   return _questions[_currentQuestionIdx];
+  // }
+
 
   updateQuestion(AnimationController controller, BuildContext context) {
     developer.log("${controller.value}", name: "updateQuestion");
@@ -58,9 +77,9 @@ class AnswerOptionModel extends ChangeNotifier {
   }
 
   _goToNextQuestion(AnimationController controller) {
-    if (_currentQuestionIdx < _dbInstance.questionList.length - 1) {
+    if (_currentQuestionIdx < _questions.length - 1) {
       _currentQuestionIdx++;
-      _question = _dbInstance.questionList[_currentQuestionIdx];
+      // _question = _questions[_currentQuestionIdx];
       _resetTimer(controller);
       refreshAnswerOptionState();
       notifyListeners();
@@ -125,4 +144,5 @@ class AnswerOptionModel extends ChangeNotifier {
   getScoreString() {
     return Strings.yourScoreIs + _getScore() + "%";
   }
+
 }
