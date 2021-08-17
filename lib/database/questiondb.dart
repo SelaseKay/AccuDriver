@@ -7,15 +7,24 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class QuestionDb {
-  Future<Database>? _database;
+  Database? _database;
+  // Database? _database;
 
-  QuestionDb._questionDbConstructor();
-  static final QuestionDb instance = QuestionDb._questionDbConstructor();
+  QuestionDb._internal() {
+    initDb();
+  }
+
+  static final QuestionDb _singleton = QuestionDb._internal();
+
+  factory QuestionDb(){
+    return _singleton;
+  }
+
+
 
   List<Question> _questions = List.empty();
 
-
-  initDb() async {
+  Future<void> initDb() async {
     var databasesPath = await getDatabasesPath();
     var path = join(databasesPath, "quizquestions.db");
 
@@ -43,19 +52,27 @@ class QuestionDb {
       print("Opening existing database");
     }
 // open the database
-      var temp = _database;
-      if (temp == null){
-        _database = openDatabase(path, readOnly: true);
-      }
-      else{
-        _database = temp;
-      }
-      return _database;
+    // var temp = _database;
+    // if (temp == null){
+    //   _database = openDatabase(path, readOnly: true);
+    // }
+    // else{
+    //   _database = temp;
+    // }
+    // return _database;
+
+    var temp = _database;
+    if (temp == null) {
+      _database = await openDatabase(path, readOnly: true);
+    } else {
+      _database = temp;
+    }
   }
 
-  Future<List<Question>> getQuestions() async {
-    final db = await initDb();
-    final List<Map<String, dynamic>> maps = await db.query('Questions');
+  Future<List<Question>> get getQuestions async {
+
+    final db = _database;
+    final List<Map<String, dynamic>> maps = await db!.query('Questions');
 
     _questions = List.generate(maps.length, (i) {
       return Question(
@@ -72,7 +89,7 @@ class QuestionDb {
   }
 
   closeDb() async {
-    final db = await _database;
+    final db = _database;
     _database = null;
     db!.close();
   }

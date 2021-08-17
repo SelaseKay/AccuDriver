@@ -21,4 +21,8 @@ class Strings {
   static String start = 'Start';
   static String score = 'Score!';
   static String yourScoreIs = 'Your score is ';
+  static String exitTitle = "Exit?";
+  static String areYouSure = "Are you sure you want to exit this quiz?";
+  static String exit = "Exit";
+  static String cancel = "Cancel";
   }

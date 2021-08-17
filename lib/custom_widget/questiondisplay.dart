@@ -1,4 +1,5 @@
-import 'package:accudriver/dialog/timeupdialog.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:accudriver/custom_widget/scoreboard.dart';
@@ -33,6 +34,10 @@ class QuestionDisplay extends StatefulWidget {
 
   String rightScore;
 
+  Uint8List? questionImg;
+
+  bool isQuestionImgVisible;
+
   Function onExpansionTileChanged;
 
   Function onTimeUpListener;
@@ -52,6 +57,8 @@ class QuestionDisplay extends StatefulWidget {
       this.rightScoreBarWidth = 4.0,
       this.leftScore = "",
       this.rightScore = "",
+      this.questionImg,
+      this.isQuestionImgVisible = false,
       required this.onTimeUpListener,
       required this.onExpansionTileChanged(double)})
       : super(key: key);
@@ -61,7 +68,7 @@ class QuestionDisplay extends StatefulWidget {
 }
 
 class _QuestionDisplayState extends State<QuestionDisplay> {
-  
+  var _noImage = Uint8List(0);
 
   @override
   Widget build(BuildContext context) {
@@ -104,12 +111,12 @@ class _QuestionDisplayState extends State<QuestionDisplay> {
                       top: -(widget.timerHeight / 2),
                       child: Container(
                         child: Timer(
-                            onTimeUp: (animatedValue){
-                                if(animatedValue.toInt() == 30){
-                                  _answerOptionModel.setAnswerClickState(true);
-                                  _answerOptionModel.setTimeUpState(true);
-                                  widget.onTimeUpListener();
-                                }
+                            onTimeUp: (animatedValue) {
+                              if (animatedValue.toInt() == 30) {
+                                _answerOptionModel.setAnswerClickState(true);
+                                _answerOptionModel.setTimeUpState(true);
+                                widget.onTimeUpListener();
+                              }
                             },
                             parentHeight: widget.timerHeight,
                             parentWidth: widget.timerHeight),
@@ -149,14 +156,18 @@ class _QuestionDisplayState extends State<QuestionDisplay> {
                       top: 16.0, bottom: 8.0, right: 16.0, left: 16.0),
                   children: [
                     Container(child: Text('')),
-                    // Visibility(
-                    //     child: Image.asset(
-                    //   '',
-                    //   width: widget.questionImageSize,
-                    //   height: widget.questionImageSize,
-                    // ))
+                    Visibility(
+                        visible: widget.isQuestionImgVisible,
+                        child: SizedBox(
+                          height: 120.0,
+                          width: 120.0,
+                          child: Image(
+                            image:
+                                MemoryImage(widget.questionImg ?? _noImage),
+                          ),
+                        ))
                   ],
-                  initiallyExpanded: false,
+                  initiallyExpanded: true,
                   onExpansionChanged: (bool) {
                     if (bool) {}
                   },

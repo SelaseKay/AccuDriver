@@ -31,14 +31,14 @@ class AnswerOptionModel extends ChangeNotifier {
 
   int get totalQuestionNum => _questions.length;
 
-  QuestionDb _dbInstance = QuestionDb.instance;
+  QuestionDb _dbInstance = QuestionDb();
 
   bool _isAnswerSelected = false;
 
   bool _isTimeUp = false;
 
   Future<List<Question>> get questions async{
-    _questions = await _dbInstance.getQuestions();
+    _questions = await _dbInstance.getQuestions;
     return _questions;
   }
 
