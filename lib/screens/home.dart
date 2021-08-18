@@ -1,5 +1,5 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:accudriver/screens/testcategories.dart';
+import 'package:accudriver/screens/questionsscreen.dart';
 import 'package:accudriver/screens/videoscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -190,6 +190,6 @@ class _HomeState extends State<Home> {
 
   void _navigateToTestCategories() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => TestCategories()));
+        context, MaterialPageRoute(builder: (context) => QuestionsScreen()));
   }
 }
