@@ -4,10 +4,15 @@ import 'package:accudriver/dialog/nextdialog.dart';
 import 'package:accudriver/dialog/scoredialog.dart';
 import 'package:accudriver/model/question.dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
+import 'package:accudriver/utils/randomnum.dart';
 import 'package:flutter/material.dart';
 import 'dart:developer' as developer;
 
 class AnswerOptionModel extends ChangeNotifier {
+  AnswerOptionModel() {
+    _generateQuestionIdx();
+  }
+
   bool _isCorrectAnswer = false;
   bool get isCorrectAnswer => _isCorrectAnswer;
 
@@ -23,13 +28,17 @@ class AnswerOptionModel extends ChangeNotifier {
   int _wrongAnswerCounter = 0;
   int get wrongAnswerCounter => _wrongAnswerCounter;
 
-  int _currentQuestionIdx = 0;
+  late int _currentQuestionIdx;
+  int _currentQuestionNum = 1;
   int get currentQuestionIdx => _currentQuestionIdx;
-  int get currentQuestionNum => _currentQuestionIdx + 1;
+  int get currentQuestionNum => _currentQuestionNum;
+  Set<int> _existingQuestionIdxs = <int>{};
 
   List<Question> _questions = List.empty();
 
-  int get totalQuestionNum => _questions.length;
+  final int totalQuestionNum = 20;
+
+  final _questionListSize = 233;
 
   QuestionDb _dbInstance = QuestionDb();
 
@@ -37,25 +46,10 @@ class AnswerOptionModel extends ChangeNotifier {
 
   bool _isTimeUp = false;
 
-  Future<List<Question>> get questions async{
+  Future<List<Question>> get questions async {
     _questions = await _dbInstance.getQuestions;
     return _questions;
   }
-
-  // Future<Question> getQuestion() async{
-  //     var questions = await getQuestions();
-  //     return await questions[currentQuestionIdx];
-  // }
-
-  // Question get question {
-    
-  // }
-
-  // Question get question async{
-  //   _getQuestions();
-  //   return _questions[_currentQuestionIdx];
-  // }
-
 
   updateQuestion(AnimationController controller, BuildContext context) {
     developer.log("${controller.value}", name: "updateQuestion");
@@ -65,7 +59,7 @@ class AnswerOptionModel extends ChangeNotifier {
     //check if no option is selected and time is up
     else if (!_isAnswerSelected && _isTimeUp) {
       // check if you are on last question
-      if (_currentQuestionIdx + 1 == totalQuestionNum) {
+      if (_currentQuestionNum == totalQuestionNum) {
         showScoreDialog(context, getScoreString());
       } else {
         _goToNextQuestion(controller);
@@ -77,12 +71,26 @@ class AnswerOptionModel extends ChangeNotifier {
   }
 
   _goToNextQuestion(AnimationController controller) {
-    if (_currentQuestionIdx < _questions.length - 1) {
-      _currentQuestionIdx++;
-      // _question = _questions[_currentQuestionIdx];
+    if (currentQuestionNum < totalQuestionNum) {
+      _currentQuestionNum++;
+      _generateQuestionIdx();
+      // _currentQuestionIdx = generateRandomNumbers(0, _questions.length - 1);
       _resetTimer(controller);
       refreshAnswerOptionState();
       notifyListeners();
+    }
+  }
+
+  _generateQuestionIdx() {
+    while (true) {
+      var temp = generateRandomNumbers(0, _questionListSize);
+      if (_existingQuestionIdxs.contains(temp)) {
+        continue;
+      } else {
+        _currentQuestionIdx = temp;
+        _existingQuestionIdxs.add(_currentQuestionIdx);
+        break;
+      }
     }
   }
 
@@ -144,5 +152,4 @@ class AnswerOptionModel extends ChangeNotifier {
   getScoreString() {
     return Strings.yourScoreIs + _getScore() + "%";
   }
-
 }

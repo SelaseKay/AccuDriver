@@ -31,13 +31,13 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
     return WillPopScope(
       onWillPop: () => showExitDialog(context),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
             body: MultiProvider(providers: [
-          ChangeNotifierProvider(create: (context) => AnswerOptionModel()),
-          ChangeNotifierProvider(create: (context) => TimerModel())
-        ], child: _QuestionPage()),
-      )),
+              ChangeNotifierProvider(create: (context) => AnswerOptionModel()),
+              ChangeNotifierProvider(create: (context) => TimerModel())
+            ], child: _QuestionPage()),
+          )),
     );
   }
 }
@@ -138,24 +138,22 @@ class __QuestionPageState extends State<_QuestionPage> {
                             child: Column(),
                           ),
                           PurpleBackground(
-                              marginTop:
-                                  statusBarHeight + statusBarHeight / 2,
+                              marginTop: statusBarHeight + statusBarHeight / 2,
                               height: questionBackgroundHeight),
                           Positioned(
                               width: screenWidth,
                               top: questionBackgroundHeight -
                                   (questionViewHeight / 4),
                               child: QuestionDisplay(
-                                questionText:
-                                    _getQuestionText(questions.data!),
-                                leftScoreBarWidth:
-                                    (_answerOptionModel.wrongAnswerCounter /
-                                            234) *
-                                        maxWidthOfScoreBar,
-                                rightScoreBarWidth:
-                                    (_answerOptionModel.correctAnswerCounter /
-                                            234) *
-                                        maxWidthOfScoreBar,
+                                questionText: _getQuestionText(questions.data!),
+                                leftScoreBarWidth: (_answerOptionModel
+                                            .wrongAnswerCounter /
+                                        _answerOptionModel.totalQuestionNum) *
+                                    maxWidthOfScoreBar,
+                                rightScoreBarWidth: (_answerOptionModel
+                                            .correctAnswerCounter /
+                                        _answerOptionModel.totalQuestionNum) *
+                                    maxWidthOfScoreBar,
                                 screenWidth: screenWidth,
                                 questionViewWidth: questionViewWidth,
                                 questionImageSize: questionImageSize,
@@ -179,8 +177,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                                         _answerOptionModel, _timerModel);
                                   });
                                 },
-                                questionImg:
-                                    _getQuestionImage(questions.data!),
+                                questionImg: _getQuestionImage(questions.data!),
                                 isQuestionImgVisible:
                                     _getQuestionImage(questions.data!) != null
                                         ? true
@@ -198,8 +195,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                         answerOptionState: _ansOpt1State,
                         onAnswerSelected:
                             (bool isCorrect, bool isGestureDetectorDisabled) {
-                          _ansOpt1State =
-                              _answerOptionModel.answerOptionState;
+                          _ansOpt1State = _answerOptionModel.answerOptionState;
                           _pauseTimer(_timerModel);
                         },
                         option: _getOptionA(questions.data!),
@@ -214,8 +210,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                         answerOptionState: _ansOpt2State,
                         onAnswerSelected:
                             (bool isCorrect, bool isGestureDetectorEnabled) {
-                          _ansOpt2State =
-                              _answerOptionModel.answerOptionState;
+                          _ansOpt2State = _answerOptionModel.answerOptionState;
                           _pauseTimer(_timerModel);
                         },
                         option: _getOptionB(questions.data!),
@@ -231,8 +226,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                         answerOptionState: _ansOpt3State,
                         onAnswerSelected:
                             (bool isCorrect, bool isGestureDetectorEnabled) {
-                          _ansOpt3State =
-                              _answerOptionModel.answerOptionState;
+                          _ansOpt3State = _answerOptionModel.answerOptionState;
                           _pauseTimer(_timerModel);
                         },
                         option: _getOptionC(questions.data!),
@@ -248,8 +242,7 @@ class __QuestionPageState extends State<_QuestionPage> {
                         answerOptionState: _ansOpt4State,
                         onAnswerSelected:
                             (bool isCorrect, bool isGestureDetectorEnabled) {
-                          _ansOpt4State =
-                              _answerOptionModel.answerOptionState;
+                          _ansOpt4State = _answerOptionModel.answerOptionState;
                           _pauseTimer(_timerModel);
                         },
                         option: _getOptionD(questions.data!),
