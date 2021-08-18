@@ -146,14 +146,10 @@ class __QuestionPageState extends State<_QuestionPage> {
                                   (questionViewHeight / 4),
                               child: QuestionDisplay(
                                 questionText: _getQuestionText(questions.data!),
-                                leftScoreBarWidth: (_answerOptionModel
-                                            .wrongAnswerCounter /
-                                        _answerOptionModel.totalQuestionNum) *
-                                    maxWidthOfScoreBar,
-                                rightScoreBarWidth: (_answerOptionModel
-                                            .correctAnswerCounter /
-                                        _answerOptionModel.totalQuestionNum) *
-                                    maxWidthOfScoreBar,
+                                leftScoreBarWidth:
+                                    _getLeftScoreBoardWidth(maxWidthOfScoreBar),
+                                rightScoreBarWidth: _getRightScoreBoardWidth(
+                                    maxWidthOfScoreBar),
                                 screenWidth: screenWidth,
                                 questionViewWidth: questionViewWidth,
                                 questionImageSize: questionImageSize,
@@ -322,6 +318,16 @@ class __QuestionPageState extends State<_QuestionPage> {
   _getQuestionImage(List<Question> questions) {
     return questions[_answerOptionModel.currentQuestionIdx].questionImage;
   }
+
+  _getLeftScoreBoardWidth(double maxWidthOfScoreBar) =>
+      (_answerOptionModel.wrongAnswerCounter /
+          _answerOptionModel.totalQuestionNum) *
+      maxWidthOfScoreBar;
+
+  _getRightScoreBoardWidth(double maxWidthOfScoreBar) =>
+      (_answerOptionModel.correctAnswerCounter /
+          _answerOptionModel.totalQuestionNum) *
+      maxWidthOfScoreBar;
 
   @override
   void dispose() {
