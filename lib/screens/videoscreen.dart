@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 //import 'package:flutter/material.dart';
 
-//void main() => runApp(videoscreen());
+void main() => runApp(videoscreen());
 
 class videoscreen extends StatefulWidget {
   @override
@@ -19,7 +19,7 @@ class _videoscreenState extends State<videoscreen> {
   @override
   void initState() {
     super.initState();
-    _controller1 = VideoPlayerController.asset('video/manualcar.mp4')
+    _controller1 = VideoPlayerController.asset('assets/videos/manualcar.mp4')
       ..initialize().then((_) {
         setState(() {
           // _controller1.value.isPlaying
@@ -27,15 +27,16 @@ class _videoscreenState extends State<videoscreen> {
           //     : _controller1.play();
         });
       });
-    _controller2 = VideoPlayerController.asset('video/cockpitdrills.mp4')
-      ..initialize().then((_) {
-        setState(() {
-          // _controller2.value.isPlaying
-          //     ? _controller2.pause()
-          //     : _controller2.play();
-        });
-      });
-    _controller = VideoPlayerController.asset('video/carcontrols.mp4')
+    _controller2 =
+        VideoPlayerController.asset('assets/videos/cockpitdrills.mp4')
+          ..initialize().then((_) {
+            setState(() {
+              // _controller2.value.isPlaying
+              //     ? _controller2.pause()
+              //     : _controller2.play();
+            });
+          });
+    _controller = VideoPlayerController.asset('assets/videos/carcontrols.mp4')
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {
@@ -47,18 +48,19 @@ class _videoscreenState extends State<videoscreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Video Demo',
       home: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Video Tutorials'),
+          backgroundColor: Colors.green,
+          title: Text('Basic Driving Tutorials'),
         ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Container(
-                  decoration:
-                      BoxDecoration(),
+                  decoration: BoxDecoration(),
                   child: GestureDetector(
                     onDoubleTap: () {
                       setState(() {
@@ -77,12 +79,31 @@ class _videoscreenState extends State<videoscreen> {
                       ),
                     ),
                   )),
-              SizedBox(
-                height: 20,
-              ),
               Container(
-                  decoration:
-                      BoxDecoration(),
+                decoration: BoxDecoration(color: Colors.black),
+                alignment: Alignment.topLeft,
+                child: Card(
+                  color: Colors.black,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        'Basic Car Controls',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              //SizedBox(
+              //height: 20,
+              //),
+              Container(
+                  decoration: BoxDecoration(),
                   child: GestureDetector(
                     onDoubleTap: () {
                       setState(() {
@@ -101,45 +122,71 @@ class _videoscreenState extends State<videoscreen> {
                       ),
                     ),
                   )),
-              SizedBox(
-                height: 20,
+              Container(
+                decoration: BoxDecoration(color: Colors.black),
+                alignment: Alignment.topLeft,
+                child: Card(
+                  color: Colors.black,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        'Manual Car Tutorial',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               ),
-             Container(
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
-                  child: GestureDetector(
-                    onDoubleTap: () {
-                      setState(() {
-                        _controller2.pause();
-                      });
-                    },
-                    onTap: () {
-                      setState(() {
-                        _controller2.play();
-                      });
-                    },
-                    child: AspectRatio(
-                      aspectRatio: _controller2.value.aspectRatio,
-                      child: VideoPlayer(
-                        _controller2,
-                      ),
+              //
+
+              Container(
+                child: GestureDetector(
+                  onDoubleTap: () {
+                    setState(() {
+                      _controller2.pause();
+                    });
+                  },
+                  onTap: () {
+                    setState(() {
+                      _controller2.play();
+                    });
+                  },
+                  child: AspectRatio(
+                    aspectRatio: _controller2.value.aspectRatio,
+                    child: VideoPlayer(
+                      _controller2,
                     ),
-                  )),
+                  ),
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(color: Colors.black),
+                alignment: Alignment.topLeft,
+                child: Card(
+                  color: Colors.black,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        'The Cockpit Drill',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-        /*  floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            setState(() {
-              _controller.value.isPlaying
-                  ? _controller.pause()
-                  : _controller.play();
-            });
-          },
-          child: Icon(
-            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
-          ),
-        ),*/
       ),
     );
   }
