@@ -8,7 +8,8 @@ class Strings {
   static String driveSafe = 'Drive Safe And Drink Less';
   static String testCategories = 'TestCategories';
   static String generalKnowledgeOnDriving = 'General Knowledge On Driving';
-  static String howMuchDoYouKnowAboutSigns = 'How Much Do You Know About Road Signs?';
+  static String howMuchDoYouKnowAboutSigns =
+      'How Much Do You Know About Road Signs?';
   static String testYourSelfOnYourCar = 'Do You Know Stuff About Your Car?';
   static String next = 'Next';
   static String noOptSelected = 'No Option Selected!';
@@ -25,4 +26,4 @@ class Strings {
   static String areYouSure = "Are you sure you want to exit this quiz?";
   static String exit = "Exit";
   static String cancel = "Cancel";
-  }
+}

@@ -1,6 +1,6 @@
 import 'package:accudriver/assets/Strings.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 Future<void> showBeginTimerdialog(BuildContext context, Function onStartPressed) async {
   return showDialog(

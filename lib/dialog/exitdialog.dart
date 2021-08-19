@@ -1,6 +1,6 @@
 import 'package:accudriver/assets/Strings.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 Future<bool> showExitDialog(BuildContext context) async {
   return await showDialog(

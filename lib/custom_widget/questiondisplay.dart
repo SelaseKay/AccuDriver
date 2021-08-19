@@ -6,7 +6,7 @@ import 'package:accudriver/custom_widget/scoreboard.dart';
 import 'package:accudriver/utils/widgetsize.dart';
 import 'package:accudriver/custom_widget/timer.dart';
 import 'package:accudriver/custom_widget/currentquestionIndicator.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:provider/provider.dart';
 
 class QuestionDisplay extends StatefulWidget {

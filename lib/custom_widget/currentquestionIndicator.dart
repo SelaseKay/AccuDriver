@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
+import 'package:flutter_hex_color/flutter_hex_color.dart';
+
+// ignore: must_be_immutable
 class CurrentQuestionIndicator extends StatefulWidget {
   String currentQuestionNum;
   String totalQuestionNum;

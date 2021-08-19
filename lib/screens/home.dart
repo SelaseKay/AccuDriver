@@ -1,8 +1,10 @@
 // ignore: import_of_legacy_library_into_null_safe
+
+import 'package:accudriver/custom_widget/signScreenBody.dart';
 import 'package:accudriver/screens/questionsscreen.dart';
 import 'package:accudriver/screens/videoscreen.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:accudriver/assets/Strings.dart';
 import 'package:accudriver/custom_widget/carousel.dart';
 
@@ -155,7 +157,16 @@ class _HomeState extends State<Home> {
                           animationDuration: Duration(milliseconds: 200),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(31)),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return signScreenBody();
+                                },
+                              ),
+                            );
+                          },
                           color: HexColor('#71C3CE'),
                           height: double.infinity,
                           minWidth: double.infinity,

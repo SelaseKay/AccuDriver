@@ -1,4 +1,4 @@
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 class Constants{
 

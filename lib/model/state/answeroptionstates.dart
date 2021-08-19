@@ -1,5 +1,5 @@
 import 'package:accudriver/assets/Constants.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 class AnswerOptionState {
   HexColor borderColor = Constants.INITIAL_BORDER_COLOR;

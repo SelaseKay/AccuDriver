@@ -1,7 +1,6 @@
 name: accudriver
 description: A new Flutter project.
 
-
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -28,10 +27,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  hexcolor: ^2.0.4
   video_player: ^2.1.12
   provider: ^5.0.0
   sqflite: ^2.0.0+3
+  flutter_hex_color: ^2.0.0
 
 dev_dependencies:
   flutter_test:

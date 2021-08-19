@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/gestures.dart';
+
+//import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 class Carousel extends StatefulWidget {
   final List<Widget> images;

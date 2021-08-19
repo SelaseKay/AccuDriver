@@ -5,7 +5,7 @@ import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -104,5 +104,4 @@ class AnswerOption extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -1,7 +1,7 @@
 import 'package:accudriver/assets/Strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 Future<void> showScoreDialog(BuildContext context, String content) async{
   return showDialog(context: context, builder: (BuildContext context){

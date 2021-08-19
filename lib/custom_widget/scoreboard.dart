@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 
 class ScoreBoard extends StatefulWidget {
   final double questionViewWidth;
@@ -8,6 +8,8 @@ class ScoreBoard extends StatefulWidget {
   String leftText;
   String rightText;
   HexColor? barColor;
+
+// ignore: must_be_immutable
   double marginTop;
   double marginLeft;
   double marginRigt;
@@ -54,6 +56,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
         ),
         AnimatedContainer(
           duration: Duration(milliseconds: 400),
+
           margin: EdgeInsets.only(left: 6.0, top: widget.marginTop),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(30)),
