@@ -109,7 +109,16 @@ class _HomeState extends State<Home> {
                           animationDuration: Duration(milliseconds: 200),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(31)),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return videoscreen();
+                                },
+                              ),
+                            );
+                          },
                           color: HexColor('#00C177'),
                           height: double.infinity,
                           minWidth: double.infinity,
