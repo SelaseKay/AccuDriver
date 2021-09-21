@@ -26,4 +26,5 @@ class Strings {
   static String areYouSure = "Are you sure you want to exit this quiz?";
   static String exit = "Exit";
   static String cancel = "Cancel";
+  static String basicDrivingTuts = "Basic Driving Tutorials";
 }

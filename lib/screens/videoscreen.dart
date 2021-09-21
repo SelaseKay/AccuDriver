@@ -1,3 +1,4 @@
+import 'package:accudriver/assets/Strings.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -48,18 +49,24 @@ class _videoscreenState extends State<videoscreen> {
 
   @override
   Widget build(BuildContext context) {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
+    final double screenHeight =
+        MediaQuery.of(context).size.height - statusBarHeight;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Video Demo',
       home: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.green,
-          title: Text('Basic Driving Tutorials'),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              floating: true,
+              snap: true,
+              title: Text(Strings.basicDrivingTuts),
+              backgroundColor: Colors.white,
+            ),
               Container(
                   decoration: BoxDecoration(),
                   child: GestureDetector(
@@ -188,7 +195,6 @@ class _videoscreenState extends State<videoscreen> {
             ],
           ),
         ),
-      ),
     );
   }
 
