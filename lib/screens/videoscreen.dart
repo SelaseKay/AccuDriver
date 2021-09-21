@@ -1,5 +1,8 @@
 import 'package:accudriver/assets/Strings.dart';
+import 'package:accudriver/custom_widget/videothumbnail.dart';
+import 'package:accudriver/screens/videoplayerscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hex_color/flutter_hex_color.dart';
 //import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:video_player/video_player.dart';
@@ -13,46 +16,15 @@ class videoscreen extends StatefulWidget {
 }
 
 class _videoscreenState extends State<videoscreen> {
-  late VideoPlayerController _controller;
-
-  late VideoPlayerController _controller2;
-  late VideoPlayerController _controller1;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller1 = VideoPlayerController.asset('assets/videos/manualcar.mp4')
-      ..initialize().then((_) {
-        setState(() {
-          // _controller1.value.isPlaying
-          //     ? _controller1.pause()
-          //     : _controller1.play();
-        });
-      });
-    _controller2 =
-        VideoPlayerController.asset('assets/videos/cockpitdrills.mp4')
-          ..initialize().then((_) {
-            setState(() {
-              // _controller2.value.isPlaying
-              //     ? _controller2.pause()
-              //     : _controller2.play();
-            });
-          });
-    _controller = VideoPlayerController.asset('assets/videos/carcontrols.mp4')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {
-          _;
-        });
-      });
-  }
 
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
     final double screenHeight =
-        MediaQuery.of(context).size.height - statusBarHeight;
+        MediaQuery.of(context).size.height - (statusBarHeight + kToolbarHeight);
+
+    final double videoThumnailHeight = screenHeight * 0.35;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -64,201 +36,74 @@ class _videoscreenState extends State<videoscreen> {
             SliverAppBar(
               floating: true,
               snap: true,
-              title: Text(Strings.basicDrivingTuts),
-              backgroundColor: Colors.white,
+              elevation: 10.0,
+              forceElevated: true,
+              title: Text(Strings.basicDrivingTuts,
+                  style: TextStyle(color: Colors.black)),
+              backgroundColor: HexColor("#F3F3F3"),
             ),
-              Container(
-                  decoration: BoxDecoration(),
-                  child: GestureDetector(
-                    onDoubleTap: () {
-                      setState(() {
-                        _controller.pause();
-                      });
-                    },
-                    onTap: () {
-                      setState(() {
-                        _controller.play();
-                      });
-                    },
-                    child: AspectRatio(
-                      aspectRatio: _controller.value.aspectRatio,
-                      child: VideoPlayer(
-                        _controller,
-                      ),
-                    ),
-                  )),
-              Container(
-                decoration: BoxDecoration(color: Colors.black),
-                alignment: Alignment.topLeft,
-                child: Card(
-                  color: Colors.black,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        'Basic Car Controls',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              //SizedBox(
-              //height: 20,
-              //),
-              Container(
-                  decoration: BoxDecoration(),
-                  child: GestureDetector(
-                    onDoubleTap: () {
-                      setState(() {
-                        _controller1.pause();
-                      });
-                    },
-                    onTap: () {
-                      setState(() {
-                        _controller1.play();
-                      });
-                    },
-                    child: AspectRatio(
-                      aspectRatio: _controller1.value.aspectRatio,
-                      child: VideoPlayer(
-                        _controller1,
-                      ),
-                    ),
-                  )),
-              Container(
-                decoration: BoxDecoration(color: Colors.black),
-                alignment: Alignment.topLeft,
-                child: Card(
-                  color: Colors.black,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        'Manual Car Tutorial',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              //
-
-              Container(
-                child: GestureDetector(
-                  onDoubleTap: () {
-                    setState(() {
-                      _controller2.pause();
-                    });
-                  },
+            SliverList(
+              delegate: SliverChildListDelegate([
+                GestureDetector(
                   onTap: () {
-                    setState(() {
-                      _controller2.play();
-                    });
+                    _navigateToVideoScreen("1",
+                        "assets/videos/carcontrols.mp4",
+                        "assets/images/carcontrols.png"
+                        );
                   },
-                  child: AspectRatio(
-                    aspectRatio: _controller2.value.aspectRatio,
-                    child: VideoPlayer(
-                      _controller2,
-                    ),
-                  ),
+                  child: VideoThumnail(
+                      height: videoThumnailHeight,
+                      marginTop: 24.0,
+                      heroNumber: "1",
+                      imageName: "carcontrols.png",
+                      imageDescription: "Learn how to control your car."),
                 ),
-              ),
-              Container(
-                decoration: BoxDecoration(color: Colors.black),
-                alignment: Alignment.topLeft,
-                child: Card(
-                  color: Colors.black,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text(
-                        'The Cockpit Drill',
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                        ),
-                      )
-                    ],
-                  ),
+                GestureDetector(
+                  onTap: () {
+                    _navigateToVideoScreen("2",
+                        "assets/videos/cockpitdrills.mp4",
+                        "assets/images/cockpitdrills.png"
+                        );
+                  },
+                  child: VideoThumnail(
+                      height: videoThumnailHeight,
+                      marginTop: 16.0,
+                      heroNumber: "2",
+                      imageName: "cockpitdrills.png",
+                      imageDescription: "Cockpitdrills people."),
                 ),
-              ),
-            ],
-          ),
-        ),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-}
-
-class _ButterFlyAssetVideo extends StatefulWidget {
-  @override
-  _ButterFlyAssetVideoState createState() => _ButterFlyAssetVideoState();
-}
-
-class _ButterFlyAssetVideoState extends State<_ButterFlyAssetVideo> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.asset('assets/Butterfly-209.mp4');
-
-    _controller.addListener(() {
-      setState(() {});
-    });
-    _controller.setLooping(true);
-    _controller.initialize().then((_) => setState(() {}));
-    _controller.play();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          Container(
-            padding: const EdgeInsets.only(top: 20.0),
-          ),
-          const Text('With assets mp4'),
-          Container(
-            padding: const EdgeInsets.all(20),
-            child: AspectRatio(
-              aspectRatio: _controller.value.aspectRatio,
-              child: Stack(
-                alignment: Alignment.bottomCenter,
-                children: <Widget>[
-                  VideoPlayer(_controller),
-                  _ControlsOverlay(controller: _controller),
-                  VideoProgressIndicator(_controller, allowScrubbing: true),
-                ],
-              ),
+                GestureDetector(
+                  onTap: () {
+                    _navigateToVideoScreen("3",
+                        "assets/videos/manualcar.mp4",
+                        "assets/images/manualcar.png"
+                        );
+                  },
+                  child: VideoThumnail(
+                      height: videoThumnailHeight,
+                      marginTop: 16.0,
+                      marginBottom: 8.0,
+                      heroNumber: "3",
+                      imageName: "manualcar.png",
+                      imageDescription: "Manual stuff............"),
+                )
+              ]),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  _ControlsOverlay({required VideoPlayerController controller}) {}
+  void _navigateToVideoScreen(String videoUrl, String heroNumber, String imageAsset) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => VideoPlayerScreen(
+                imageAsset: imageAsset,
+                  heroNumber: heroNumber,
+                  videoPlayerController:
+                      VideoPlayerController.asset(videoUrl),
+                )));
+  }
 }
