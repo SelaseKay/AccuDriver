@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 
+// ignore: must_be_immutable
 class ScoreBoard extends StatefulWidget {
   final double questionViewWidth;
   final double timerSize;
@@ -35,6 +36,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
   @override
   Widget build(BuildContext context) {
     final double barPaddings = 26;
+    // ignore: unused_local_variable
     final double maxWidthOfBar =
         (widget.questionViewWidth / 2) - (widget.timerSize / 2) - barPaddings;
 

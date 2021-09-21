@@ -11,19 +11,30 @@ class Signcard extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
+            child: GestureDetector(
+              onTap: (){
+                
+              },
+            ),
+            margin: EdgeInsets.all(16.0),
             decoration: BoxDecoration(
               color: Colors.transparent,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(10),
               image: DecorationImage(
-                image: AssetImage(roadsign.signImage),
+               image: AssetImage(roadsign.signImage),
                 fit: BoxFit.contain,
               ),
             ),
+            
           ),
         ),
         Text(
           roadsign.signName,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+             fontSize: 15,
+             ),
         )
       ],
     );

@@ -1,8 +1,10 @@
 // ignore: import_of_legacy_library_into_null_safe
 
+// ignore: unused_import
 import 'package:accudriver/custom_widget/signScreenBody.dart';
 import 'package:accudriver/screens/questionsscreen.dart';
 import 'package:accudriver/screens/videoscreen.dart';
+import 'package:accudriver/signscreenmod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
 import 'package:accudriver/assets/Strings.dart';
@@ -49,15 +51,24 @@ class _HomeState extends State<Home> {
               height: 190.0,
               width: double.infinity,
               decoration: BoxDecoration(
-                  gradient: LinearGradient(colors: [
-                    HexColor('#71C0F5'),
-                    HexColor('#45A5E5'),
-                    HexColor('#0A80CF'),
-                  ]),
-                  borderRadius: BorderRadius.all(Radius.circular(31)),
-                  ),
+                gradient: LinearGradient(colors: [
+                  HexColor('#71C0F5'),
+                  HexColor('#45A5E5'),
+                  HexColor('#0A80CF'),
+                ]),
+                borderRadius: BorderRadius.all(Radius.circular(31)),
+              ),
               child: MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return QuestionsScreen();
+                      },
+                    ),
+                  );
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(31)),
                 child: Align(
@@ -162,7 +173,7 @@ class _HomeState extends State<Home> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return signScreenBody();
+                                  return signscreenmod();
                                 },
                               ),
                             );
@@ -199,6 +210,7 @@ class _HomeState extends State<Home> {
     );
   }
 
+  // ignore: unused_element
   void _navigateToTestCategories() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => QuestionsScreen()));

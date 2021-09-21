@@ -42,6 +42,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   }
 }
 
+// ignore: must_be_immutable
 class _QuestionPage extends StatefulWidget {
   double _expansionTileSize = 0.0;
 
@@ -95,6 +96,7 @@ class __QuestionPageState extends State<_QuestionPage> {
 
     final double questionImageSize = questionViewWidth / 1.5;
 
+    // ignore: unused_local_variable
     final double timerWidth = (screenWidth - 48) / 3;
 
     final double barPaddings = 26.0;
@@ -331,6 +333,7 @@ class __QuestionPageState extends State<_QuestionPage> {
 
   @override
   void dispose() {
+    // ignore: todo
     // TODO: implement dispose
     super.dispose();
     QuestionDb().closeDb();

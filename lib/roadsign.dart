@@ -51,6 +51,8 @@ List signName = [
   'T-Junction',
   'Vehicle Exceeding Length Prohibited',
   'Single Carriageway Ahead',
+  'Road Narrows from Both Sides',
+  'Side Winds',
 ];
 
 List signImage = [
@@ -100,6 +102,8 @@ List signImage = [
   'assets/images/Tjunction.png',
   'assets/images/vehicleexceedinglengthprohibited.png',
   'assets/images/singlecarriageway.png',
+  'assets/images/roadnarrowsfrombothsides.png',
+  'assets/images/sidewinds.png',
 ];
 
 List<RoadSign> signs = [
@@ -149,4 +153,6 @@ List<RoadSign> signs = [
   RoadSign(signImage: signImage[43], signName: signName[43]),
   RoadSign(signImage: signImage[44], signName: signName[44]),
   RoadSign(signImage: signImage[45], signName: signName[45]),
+  RoadSign(signImage: signImage[46], signName: signName[46]),
+  RoadSign(signImage: signImage[47], signName: signName[47]),
 ];
