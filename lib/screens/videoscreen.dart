@@ -46,8 +46,8 @@ class _videoscreenState extends State<videoscreen> {
               delegate: SliverChildListDelegate([
                 GestureDetector(
                   onTap: () {
-                    _navigateToVideoScreen("1",
-                        "assets/videos/carcontrols.mp4",
+                    _navigateToVideoScreen("assets/videos/carcontrols.mp4",
+                        "1",
                         "assets/images/carcontrols.png"
                         );
                   },
@@ -60,8 +60,8 @@ class _videoscreenState extends State<videoscreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _navigateToVideoScreen("2",
-                        "assets/videos/cockpitdrills.mp4",
+                    _navigateToVideoScreen("assets/videos/cockpitdrills.mp4",
+                        "2",
                         "assets/images/cockpitdrills.png"
                         );
                   },
@@ -74,8 +74,8 @@ class _videoscreenState extends State<videoscreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _navigateToVideoScreen("3",
-                        "assets/videos/manualcar.mp4",
+                    _navigateToVideoScreen("assets/videos/manualcar.mp4",
+                        "3",
                         "assets/images/manualcar.png"
                         );
                   },

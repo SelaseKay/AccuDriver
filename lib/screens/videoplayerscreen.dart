@@ -23,23 +23,27 @@ class VideoPlayerScreen extends StatefulWidget {
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late ChewieController _chewieController;
 
+  late Image imageAsset;
+
   @override
   void initState() {
     super.initState();
 
+      imageAsset = Image.asset(widget.imageAsset, fit: BoxFit.fitHeight,);
+
     _chewieController = ChewieController(
-        videoPlayerController: widget.videoPlayerController,
-        aspectRatio: 16 / 9,
-        autoInitialize: true,
-        looping: widget.looping,
-        errorBuilder: (context, errorMessage) {
-          return Center(
-              child: Text("Video unable to open",
-                  style: TextStyle(color: Colors.white)));
-        },
-        placeholder: Hero(
-            tag: "video${widget.heroNumber}",
-            child: Image.asset(widget.imageAsset)));
+      videoPlayerController: widget.videoPlayerController,
+      aspectRatio: 16 / 9,
+      autoInitialize: true,
+      looping: widget.looping,
+      errorBuilder: (context, errorMessage) {
+        return Center(
+            child: Text(errorMessage, style: TextStyle(color: Colors.white)));
+      },
+      placeholder: Hero(
+          tag: "video${widget.heroNumber}",
+          child: Center(child: imageAsset)),
+    );
   }
 
   // void _initializeChewi(){
@@ -48,9 +52,21 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
+    final double screenHeight =
+        MediaQuery.of(context).size.height - (statusBarHeight + kToolbarHeight);
+
     return Scaffold(
-      body: Chewie(
-        controller: _chewieController,
+      body: Center(
+        child: SizedBox(
+          height: screenHeight * 0.6,
+          width: double.infinity,
+          child: Chewie(
+            controller: _chewieController,
+          ),
+        ),
       ),
     );
   }
