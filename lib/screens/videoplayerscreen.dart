@@ -61,7 +61,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     return Scaffold(
       body: Center(
         child: SizedBox(
-          height: screenHeight * 0.6,
+          height: screenHeight * 0.35,
           width: double.infinity,
           child: Chewie(
             controller: _chewieController,
