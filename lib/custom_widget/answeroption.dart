@@ -1,5 +1,7 @@
 import 'package:accudriver/assets/Strings.dart';
+import 'package:accudriver/database/scoredb.dart';
 import 'package:accudriver/dialog/scoredialog.dart';
+import 'package:accudriver/model/score..dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:accudriver/model/answeroptionmodel.dart';
 import 'package:flutter/cupertino.dart';
@@ -45,14 +47,27 @@ class AnswerOption extends StatelessWidget {
     bool _isWrongIconVisible = answerOptionState.isWrongIconVisible;
 
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         print("onclicked");
         _answerOptionModel.checkAnswerCorrectness(option, correctAnswer);
         _answerOptionModel.setAnswerClickState(true);
         onAnswerSelected(_answerOptionModel.isCorrectAnswer, true);
         if (_answerOptionModel.currentQuestionNum ==
             _answerOptionModel.totalQuestionNum) {
-          showScoreDialog(context, _answerOptionModel.getScoreString());
+          var score = _answerOptionModel.getScore().toString();
+          if (_answerOptionModel.currentScoreId < 4){
+            int scoreId = await ScoreDb.instance.insert(Score(score: score));
+            print(scoreId);
+            _answerOptionModel.setCurrentScoreId(scoreId);
+          }
+          else {
+            int scoreId = _answerOptionModel.currentScoreId + 1;
+            _answerOptionModel.setCurrentScoreId(scoreId);
+            int newScoreId = scoreId % 5;
+             print("else block");
+            ScoreDb.instance.update(Score(score: score), newScoreId);
+          }
+          showScoreDialog(context, score);
         }
       },
       child: Container(

@@ -51,15 +51,6 @@ class QuestionDb {
     } else {
       print("Opening existing database");
     }
-// open the database
-    // var temp = _database;
-    // if (temp == null){
-    //   _database = openDatabase(path, readOnly: true);
-    // }
-    // else{
-    //   _database = temp;
-    // }
-    // return _database;
 
     var temp = _database;
     if (temp == null) {

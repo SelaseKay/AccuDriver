@@ -1,8 +1,10 @@
 import 'package:accudriver/assets/Strings.dart';
 import 'package:accudriver/database/questiondb.dart';
+import 'package:accudriver/database/scoredb.dart';
 import 'package:accudriver/dialog/nextdialog.dart';
 import 'package:accudriver/dialog/scoredialog.dart';
 import 'package:accudriver/model/question.dart';
+import 'package:accudriver/model/score..dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:accudriver/utils/randomnum.dart';
 import 'package:flutter/material.dart';
@@ -46,12 +48,20 @@ class AnswerOptionModel extends ChangeNotifier {
 
   bool _isTimeUp = false;
 
+  int _currentScoreId = 0;
+  int get currentScoreId => _currentScoreId;
+
+  void setCurrentScoreId(int scoreId){
+    _currentScoreId = scoreId;
+  }
+
+
   Future<List<Question>> get questions async {
     _questions = await _dbInstance.getQuestions;
     return _questions;
   }
 
-  updateQuestion(AnimationController controller, BuildContext context) {
+  updateQuestion(AnimationController controller, BuildContext context) async{
     developer.log("${controller.value}", name: "updateQuestion");
     if (_isAnswerSelected) {
       _goToNextQuestion(controller);
@@ -60,7 +70,16 @@ class AnswerOptionModel extends ChangeNotifier {
     else if (!_isAnswerSelected && _isTimeUp) {
       // check if you are on last question
       if (_currentQuestionNum == totalQuestionNum) {
-        showScoreDialog(context, getScoreString());
+        var score = getScoreString();
+        if (_currentScoreId < 4){
+          _currentScoreId = await ScoreDb.instance.insert(Score(score: score));
+        }
+        else{
+            _currentScoreId = _currentScoreId + 1;
+            int newScoreId = _currentScoreId % 5;
+            ScoreDb.instance.update(Score(score: score), newScoreId);
+          }
+        showScoreDialog(context, score);
       } else {
         _goToNextQuestion(controller);
       }
@@ -144,12 +163,12 @@ class AnswerOptionModel extends ChangeNotifier {
     _isTimeUp = isTimeUp;
   }
 
-  _getScore() {
+  getScore() {
     return ((_correctAnswerCounter / totalQuestionNum) * 100)
         .toStringAsFixed(2);
   }
 
   getScoreString() {
-    return Strings.yourScoreIs + _getScore() + "%";
+    return Strings.yourScoreIs + getScore() + "%";
   }
 }

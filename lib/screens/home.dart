@@ -2,6 +2,7 @@
 
 import 'package:accudriver/custom_widget/signScreenBody.dart';
 import 'package:accudriver/screens/questionsscreen.dart';
+import 'package:accudriver/screens/reportscreen.dart';
 import 'package:accudriver/screens/videoscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hex_color/flutter_hex_color.dart';
@@ -22,6 +23,18 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(Strings.appName, style: TextStyle(color: Colors.black)),
+        actions: [
+          PopupMenuButton(
+          icon: Icon(Icons.more_vert, color: Colors.black,),
+          color: Colors.white,
+          itemBuilder: (context)=>[
+            PopupMenuItem(child: Text(Strings.report, style: TextStyle(color: Colors.black),), value: 1)
+          ],
+          onSelected: (item) => {
+            _navigateToReportScreen()
+          },  
+          )
+        ],
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
@@ -202,5 +215,10 @@ class _HomeState extends State<Home> {
   void _navigateToTestCategories() {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => QuestionsScreen()));
+  }
+
+  void _navigateToReportScreen(){
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ReportScreen()));
   }
 }

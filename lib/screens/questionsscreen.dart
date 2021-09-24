@@ -4,6 +4,7 @@ import 'package:accudriver/dialog/exitdialog.dart';
 import 'package:accudriver/dialog/starttimerdialog.dart';
 import 'package:accudriver/dialog/timeupdialog.dart';
 import 'package:accudriver/model/question.dart';
+import 'package:accudriver/model/scoremodel.dart';
 import 'package:accudriver/model/state/answeroptionstates.dart';
 import 'package:accudriver/custom_widget/answeroption.dart';
 import 'package:accudriver/custom_widget/purplebackground.dart';
@@ -35,7 +36,8 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
           home: Scaffold(
             body: MultiProvider(providers: [
               ChangeNotifierProvider(create: (context) => AnswerOptionModel()),
-              ChangeNotifierProvider(create: (context) => TimerModel())
+              ChangeNotifierProvider(create: (context) => TimerModel()),
+              ChangeNotifierProvider(create: (context) => ScoreModel())
             ], child: _QuestionPage()),
           )),
     );

@@ -27,4 +27,7 @@ class Strings {
   static String exit = "Exit";
   static String cancel = "Cancel";
   static String basicDrivingTuts = "Basic Driving Tutorials";
+  static String report = "Report";
+  static String currentScore = "Current Score";
+  static String recentScore = "Recent Scores";
 }
