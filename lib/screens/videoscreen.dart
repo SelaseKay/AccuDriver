@@ -6,11 +6,13 @@ import 'package:video_player/video_player.dart';
 
 void main() => runApp(videoscreen());
 
+// ignore: camel_case_types
 class videoscreen extends StatefulWidget {
   @override
   _videoscreenState createState() => _videoscreenState();
 }
 
+// ignore: camel_case_types
 class _videoscreenState extends State<videoscreen> {
   late VideoPlayerController _controller;
 
@@ -41,6 +43,7 @@ class _videoscreenState extends State<videoscreen> {
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {
+          // ignore: unnecessary_statements
           _;
         });
       });
@@ -254,5 +257,6 @@ class _ButterFlyAssetVideoState extends State<_ButterFlyAssetVideo> {
     );
   }
 
+  // ignore: non_constant_identifier_names
   _ControlsOverlay({required VideoPlayerController controller}) {}
 }

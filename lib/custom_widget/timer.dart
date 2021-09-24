@@ -3,6 +3,7 @@ import 'package:accudriver/model/timermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class Timer extends StatefulWidget {
   final double? parentHeight;
   final double? parentWidth;

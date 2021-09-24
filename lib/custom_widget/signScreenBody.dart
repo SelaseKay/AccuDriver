@@ -1,7 +1,9 @@
 import 'package:accudriver/custom_widget/signcard.dart';
 import 'package:accudriver/roadsign.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
+// ignore: camel_case_types
 class signScreenBody extends StatelessWidget {
   const signScreenBody({
     Key? key,
@@ -14,10 +16,12 @@ class signScreenBody extends StatelessWidget {
         title: Text('Common Road Signs'),
       ),
       // backgroundColor: Colors.transparent,
-      body: Column(children: [
+      body: Column(
+        
+        children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: GridView.builder(
               itemCount: signs.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -33,3 +37,4 @@ class signScreenBody extends StatelessWidget {
     );
   }
 }
+
